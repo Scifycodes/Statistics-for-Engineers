@@ -1,0 +1,389 @@
+---
+title: ""
+# author: "Statistics for Engineers (MAT2001)- Lab"
+author: "Introduction to R"
+output:
+  pdf_document: 
+    toc: true
+  html_document: 
+    toc: true
+    theme: cosmo
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+```
+
+
+
+
+# Introduction to R
+
+-   R is a language and environment for statistical computing and
+    graphics.
+-   R provides a wide variety of statistical (linear and nonlinear
+    modelling, classical statistical tests, time-series analysis,
+    classification, clustering, …) and graphical techniques, and is
+    highly extensible.
+-   One of R’s strengths is the ease with which well-designed
+    publication-quality plots can be produced, including mathematical
+    symbols and formulae where needed.
+-   R offers plenty of options for loading external data, including
+    Excel, Minitab, SAS and SPSS files.
+-   Here you can download [R](https://cloud.r-project.org/) and
+    [RStudio](https://posit.co/download/rstudio-desktop/)
+
+## Basics
+
+-   After R is started, there is a console awaiting for input. At the
+    prompt `>`, you can enter numbers and perform calculations.
+-   The assignment operators are the left arrow with dash `<-` ,`->`and
+    equal sign `=`.
+-   The character `#` marks the beginning of a comment.All characters
+    until the end of the line are ignored.
+
+```{r echo=TRUE, message=TRUE}
+# Example 
+4+5
+
+```
+
+```{r echo=TRUE}
+x <- 5
+print(x)
+```
+
+## Create a vectors
+
+*`c` function*
+
+-   R functions are invoked by its name, followed by the parenthesis and
+    arguments. The function `c` is used to combine three numeric values
+    into a vector
+
+The command `c(1,2,3,4,5)` combines the numbers 1,2,3,4 and 5 to a
+vector.
+
+```{r echo=TRUE}
+c(1,2,3,4,5)
+
+```
+
+## Basic operations
+
+R’s basic operators have the following precedence (listed in
+highest-to-lowest order)
+
+`^` exponentiation
+
+`- +` unary minus and plus
+
+`:` sequence operator
+
+`%/% %%` integer division, remainder
+
+`* /` multiplication, division
+
+`+ -` addition, subtraction
+
+```{r}
+2^3^2
+(2^3)^2
+2^(3^2) 
+sqrt(2)
+```
+
+## Seq operator and `seq` function
+
+The expression $n_1:n_2$, generates the sequence of integers from $n_1$
+to $n_2$
+
+```{r}
+# print the numbers 1 to 15
+1:15
+```
+
+```{r}
+# specifies interval and increment
+seq(2,8,by=2)
+```
+
+```{r}
+# specifies interval and the number of elements
+seq(0,1,length=11)
+```
+
+Generating sequences of letters-lower case alphabets
+
+```{r}
+letters
+letters[5:10]
+```
+
+### sequence of uppercase alphabets
+
+```{r}
+LETTERS
+LETTERS[2:6]
+```
+
+Repeats-the command `rep`
+
+```{r}
+rep(2, times = 5)
+rep(1:3, times = 4)
+rep(1:3, each=2, times = 4)
+```
+
+## Matrix
+
+-   Matrices are important objects in any calculation. A matrix is a
+    rectangular array with p rows and n columns.
+
+-   The parameter `nrow` defines the row number of a matrix.
+
+-   The parameter `ncol` defines the column number of a matrix.
+
+-   The parameter data assigns specified values to the matrix elements.
+
+`matrix(data = NA, nrow = 1, ncol = 1, byrow = FALSE, dimnames = NULL)`
+
+In R, a 4 × 2-matrix X can be created with a following command:
+
+```{r}
+x <- matrix(data = c(1:8), nrow = 4, ncol = 2)
+print(x)
+
+```
+
+One can access a single element of a matrix with `x[i,j]`:
+
+```{r}
+x[3, 2]
+```
+
+We can get specific properties of a matrix:
+
+```{r}
+dim(x)
+nrow(x)
+ncol(x)
+
+```
+
+Assigning a specified number to all matrix elements:
+
+```{r}
+y <- matrix(data = 3, nrow = 2, ncol = 2)
+print(y)
+```
+
+Construction of a diagonal matrix, here the identity matrix of a
+dimension 2:
+
+```{r}
+diagonal <- diag(3, nrow = 2)
+diagonal
+```
+
+### Transpose of a matrix X: X’
+
+```{r}
+z <- t(x)
+z
+```
+
+### Basic matrix operation
+
+```{r}
+a <- matrix(1:9, nrow = 3, ncol = 3)
+
+b <- matrix(11:19, nrow = 3, ncol = 3)
+
+a+b
+a-b
+a/b
+```
+
+### Multiplication of a matrix with a constant
+
+```{r}
+# Note: x is already defined
+x*5
+```
+
+Matrix multiplication: operator `%*%`
+
+-   `crossprod()` computes $x^T×y$
+
+Note: Command `crossprod()` executes the multiplication faster than the
+conventional method with t(a)%\*%a
+
+```{r}
+a <- matrix(1:6, nrow = 3, ncol = 2)
+a
+b <- matrix(11:16, nrow = 2, ncol = 3)
+b
+a %*%b
+
+crossprod(t(a), b)
+```
+
+### Access to rows, columns or submatrices
+
+```{r}
+x <- matrix(1:9, nrow = 3, ncol = 3)
+x
+x[2, ]
+x[1:2,2:3]
+```
+
+## Sorting
+
+`sort` function sorts the values of a vector in ascending order (by
+default) or descending order.
+
+```{r}
+sort(c(20,50, 10, 30, 90,70, 80), decreasing = FALSE)
+sort(c(20,50, 10, 30, 90,70, 80), decreasing = TRUE)
+```
+
+## Practice
+
+1.  Create `a` sequence from 1 to 6
+2.  Create `b` sequence from 7 to 12
+3.  Create matrix for `a` and `b`.
+4.  Calculate the basic operation for the two matrix.
+5.  Arange the `b` sequence in descending order.
+
+```{r, include=FALSE}
+a <- matrix(seq(1, 6), nrow = 3)
+b <- matrix(seq(7, 12), nrow = 3)
+a+b
+```
+
+## Logical operator
+
+```{r}
+a <- 5
+b <- 3
+
+# Equal to
+print(a == b) 
+
+# Not equal to
+print(a != b) 
+
+# Greater than
+print(a > b)  
+
+# Less than or equal to
+print(a <= b) 
+
+# Less than
+print(a < b)   
+# Greater than or equal to
+print(a >= b)  
+
+```
+
+```{r}
+x <- c(1, 0, 3, 5)
+y <- c(0, 3, 3, 2)
+
+# Element-wise logical AND
+print(x & y)  
+
+# Element-wise logical OR
+print(x | y)  
+
+# Element-wise logical NOT on x
+print(!x)  
+
+# Comparison: x is greater than y
+print(x > y) 
+
+```
+
+## Data Frames
+
+-   In a data frame, we can combine variables of equal length,with each
+    row in the data frame containing observations on the same unit.
+-   Variables in a data frame may be numeric (numbers) or categorical
+    (characters or factors).
+-   Basic Syntax:
+    `data_frame_name <- data.frame(column1 = vector1, column2 = vector2, ...)`
+
+```{r}
+id <- c(101, 102, 103)
+name <- c("Alice", "Bob", "Charlie")
+gender <- factor(c("Male", "Female", "Female"))
+full_time <- c(TRUE, FALSE, TRUE)
+salary <- c(50000, 60000, 55000)
+
+# Creating the data frame
+employee_data <- data.frame(ID = id, Name = name,Gender = gender,
+                            FullTime = full_time, Salary = salary)
+
+# Print the data frame
+print(employee_data)
+
+```
+
+### Arithmetic mean
+
+#### Ungrouped data
+
+Find the mean value for 55,68,72,79,90,63,85,77,64,82, 55, 66, 89, 78,
+67.
+
+##### Manual method
+
+```{r}
+data <- c(55,68,72,79,90,63,85,77,64,82, 55, 66, 89, 78, 67)
+data
+avg <- sum(data)/length(data)
+print(avg)
+```
+
+##### Using R command
+
+```{r}
+mean(data)
+```
+
+#### Grouped data - Discrete frequncy distribution
+
+##### Manual method
+
+```{r}
+x <- table(data)
+x
+fx <- unique(data)*x
+fx
+N <- sum(x)
+avg <- sum(fx)/N
+avg
+```
+
+##### Using R command
+
+```{r}
+mean(data)
+```
+
+## Practice
+
+1.  max(c(62,83,44,75)\^ -c(9,-3)) / min(c(52,62,71,85)\^c(2,3) ) -
+    prod(c(1,2,1,2) \^ c(1,2))+max( c(12,13,14,15)\^c(2,3)) ?
+2.  X1 \<- c(123,258,318,624), X2 \<- sqrt(X1 \^3) +X1/X1\^2-X1\*\*(1/2)
+3.  X\<-matrix(nrow=3,ncol=3,data=
+    c(10,20,30,40,50,60,70,80,90),byrow=F) then X[ ,2]?
+4.  X\<-matrix(nrow=3, ncol=3, data = c(10,20,30,40,50,60,70,80,90) ,
+    byrow=F) then X[2:3,2:3] ?
+5.  sqrt(abs(seq(-6,6, by = 3)))?
+6.  x \<- c(10, 75, 20, 35, 30, 40, 180, 50, 60, 27, 70, 67, 80, 50, 39,
+    120) x[(x\>50)]? x[(x - 20 \> 40)] x[(x\^2 + 10 \> 50)]
+

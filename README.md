@@ -5,7 +5,7 @@ This document contains content based on the Vellore Institute of Technology syll
     The content presented here is derived from the Fundamentals of Mathematical Statistics, Probability, and Statistics textbooks. These textbooks have been carefully selected to ensure the accuracy and depth of the information covered.
 
 **Acknowledgements:**
-The content has been developed and structured with inspiration from renowned scholars, including:
+The content has been developed and structured with inspiration from:
         Dr. D. Easwaramoorthy
         Dr. A. Manimaran
         Dr. Gowrisankar A.

@@ -1,0 +1,563 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+ \date{}
+\title{Statistics for Engineers (MAT2001)- Lab  Experiment-IV:  Binomial distribution and Poisson distribution}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\maketitle
+ % \tableofcontents
+
+\section{BASICS IN PROBABILITY}
+If you want to pick five numbers at random from the set 1:50, then you can
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{sample}\hldef{(}\hlnum{1}\hlopt{:}\hlnum{50}\hldef{,}\hlnum{5}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 19 33  2 49 22
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Sampling with replacement is suitable for modelling coin tosses or throws of a die.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{sample}\hldef{(}\hlnum{1}\hlopt{:}\hlnum{6}\hldef{,}\hlnum{10}\hldef{,}\hlkwc{replace}\hldef{=}\hlnum{TRUE}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+##  [1] 3 5 2 3 4 3 3 1 6 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{sample}\hldef{(}\hlnum{1}\hlopt{:}\hlnum{6}\hldef{,}\hlnum{10}\hldef{,}\hlkwc{replace}\hldef{=}\hlnum{FALSE}\hldef{)}
+\end{alltt}
+
+
+{\ttfamily\noindent\bfseries\color{errorcolor}{\#\# Error in sample.int(length(x), size, replace, prob): cannot take a sample larger than the population when 'replace = FALSE'}}\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{dice} \hlkwb{=} \hlkwd{as.vector}\hldef{(}\hlkwd{outer}\hldef{(}\hlnum{1}\hlopt{:}\hlnum{6}\hldef{,}\hlnum{1}\hlopt{:}\hlnum{6}\hldef{,paste))}
+\hlkwd{print}\hldef{(dice)}
+\end{alltt}
+\begin{verbatim}
+##  [1] "1 1" "2 1" "3 1" "4 1" "5 1" "6 1" "1 2" "2 2" "3 2" "4 2" "5 2" "6 2"
+## [13] "1 3" "2 3" "3 3" "4 3" "5 3" "6 3" "1 4" "2 4" "3 4" "4 4" "5 4" "6 4"
+## [25] "1 5" "2 5" "3 5" "4 5" "5 5" "6 5" "1 6" "2 6" "3 6" "4 6" "5 6" "6 6"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Toss a coin
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{sample}\hldef{(}\hlkwd{c}\hldef{(}\hlsng{"H"}\hldef{,}\hlsng{"T"}\hldef{),}\hlnum{10}\hldef{,}\hlkwc{replace}\hldef{=}\hlnum{TRUE}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+##  [1] "T" "H" "T" "H" "H" "T" "H" "H" "H" "T"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Combination
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{choose}\hldef{(}\hlnum{10}\hldef{,}\hlnum{3}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 120
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Permutation
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# There is no separate permutation function in R}
+\hldef{n} \hlkwb{<-} \hlnum{10}
+\hldef{k} \hlkwb{<-} \hlnum{5}
+\hldef{pnk} \hlkwb{<-} \hlkwd{factorial}\hldef{(n)}\hlopt{/}\hlkwd{factorial}\hldef{(n}\hlopt{-}\hldef{k)}
+\hldef{pnk}
+\end{alltt}
+\begin{verbatim}
+## [1] 30240
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Give all binomial coefficients for $10C_x$
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{choose}\hldef{(}\hlnum{10}\hldef{,}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+##  [1]   1  10  45 120 210 252 210 120  45  10   1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Use a loop to print the first several rows of pasacal’s triangle.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwa{for} \hldef{(n} \hlkwa{in} \hlnum{0}\hlopt{:}\hlnum{10}\hldef{)} \hlkwd{print}\hldef{(}\hlkwd{choose}\hldef{(n,} \hlnum{0}\hlopt{:}\hldef{n))}
+\end{alltt}
+\begin{verbatim}
+## [1] 1
+## [1] 1 1
+## [1] 1 2 1
+## [1] 1 3 3 1
+## [1] 1 4 6 4 1
+## [1]  1  5 10 10  5  1
+## [1]  1  6 15 20 15  6  1
+## [1]  1  7 21 35 35 21  7  1
+## [1]  1  8 28 56 70 56 28  8  1
+##  [1]   1   9  36  84 126 126  84  36   9   1
+##  [1]   1  10  45 120 210 252 210 120  45  10   1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\section{Binomial Distribution}
+For a binomial(n,p) random variable X, the R functions involve the abbreviation "binom":
+
+	\begin{itemize}
+		\item dbinom(k,n,p),  binomial(n,p) density at k: Pr(X = k)
+		\item pbinom(k,n,p),  binomial(n,p) CDF at k: $Pr(X \leq k)$
+		\item qbinom(P,n,p),  binomial(n,p) P-th quantile
+		\item rbinom(N,n,p),  N binomial(n,p) random variables
+	\end{itemize} 
+
+
+Problem: \newline
+Find the P(2) among ten dice by using binomial probability formula
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{choose}\hldef{(}\hlnum{10}\hldef{,}\hlnum{2}\hldef{)}\hlopt{*}\hldef{(}\hlnum{1}\hlopt{/}\hlnum{6}\hldef{)}\hlopt{^}\hlnum{2}\hlopt{*}\hldef{(}\hlnum{5}\hlopt{/}\hlnum{6}\hldef{)}\hlopt{^}\hlnum{8}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.29071
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem: \newline
+Find the Probability of getting two among ten dice
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{dbinom}\hldef{(}\hlnum{2}\hldef{,}\hlkwc{size}\hldef{=}\hlnum{10}\hldef{,}\hlkwc{prob}\hldef{=}\hlnum{1}\hlopt{/}\hlnum{6}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.29071
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem: \newline
+Find the Probability of getting less than or equal 3 among ten dice
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{bin_3} \hlkwb{<-} \hlkwd{dbinom}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{3}\hldef{,}\hlkwc{size}\hldef{=}\hlnum{10}\hldef{,}\hlkwc{prob}\hldef{=}\hlnum{1}\hlopt{/}\hlnum{6}\hldef{)}
+\hldef{bin_3}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.1615056 0.3230112 0.2907100 0.1550454
+\end{verbatim}
+\begin{alltt}
+\hldef{P_3} \hlkwb{<-} \hlkwd{sum}\hldef{(bin_3)}
+\hldef{P_3}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.9302722
+\end{verbatim}
+\begin{alltt}
+\hlkwd{pbinom}\hldef{(}\hlnum{3}\hldef{,}\hlkwc{size}\hldef{=}\hlnum{10}\hldef{,}\hlkwc{prob}\hldef{=}\hlnum{1}\hlopt{/}\hlnum{6}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.9302722
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem: \newline
+Find the table for BIN(n=10,P=1/6)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{prob_tab} \hlkwb{<-} \hlkwd{dbinom}\hldef{(}\hlkwc{x} \hldef{=} \hlnum{0}\hlopt{:}\hlnum{10}\hldef{,} \hlkwc{size} \hldef{=} \hlnum{10}\hldef{,} \hlkwc{prob} \hldef{=} \hlnum{1}\hlopt{/}\hlnum{6}\hldef{)}
+\hlkwd{data.frame}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{, prob_tab)}
+\end{alltt}
+\begin{verbatim}
+##    X0.10     prob_tab
+## 1      0 1.615056e-01
+## 2      1 3.230112e-01
+## 3      2 2.907100e-01
+## 4      3 1.550454e-01
+## 5      4 5.426588e-02
+## 6      5 1.302381e-02
+## 7      6 2.170635e-03
+## 8      7 2.480726e-04
+## 9      8 1.860544e-05
+## 10     9 8.269086e-07
+## 11    10 1.653817e-08
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\subsection{BINOMIAL PROBABILITY PLOTS}
+Problem: \newline
+Draw a Plot for the Binomial distribution Bin(n=10,p=1/6)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,prob_tab,}\hlkwc{type}\hldef{=}\hlsng{"h"}\hldef{,}\hlkwc{xlim}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,}\hlnum{10}\hldef{),}\hlkwc{ylim}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,}\hlnum{0.5}\hldef{))}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-14-1} 
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,prob_tab,}\hlkwc{type}\hldef{=}\hlsng{"h"}\hldef{,}\hlkwc{xlim}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,}\hlnum{10}\hldef{),}\hlkwc{ylim}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,}\hlnum{0.5}\hldef{))}
+\hlkwd{points}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,prob_tab,}\hlkwc{pch}\hldef{=}\hlnum{16}\hldef{,}\hlkwc{cex}\hldef{=}\hlnum{2}\hldef{,} \hlkwc{col}\hldef{=}\hlsng{"blue"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-15-1} 
+\end{knitrout}
+Problem: \newline
+If 10\% of the Screws produced by an automatic machine are defective, find the
+probability that out of 20 screws selected at random, there are\\
+(i) Exactly 2 defective\\
+(ii) At least 2 defectives\\
+(iii) Between 1 and 3 defectives (inclusive)\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{dbinom}\hldef{(}\hlnum{2}\hldef{,}\hlnum{20}\hldef{,}\hlnum{10}\hlopt{/}\hlnum{100}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.2851798
+\end{verbatim}
+\begin{alltt}
+\hlnum{1}\hlopt{-}\hlkwd{dbinom}\hldef{(}\hlnum{1}\hldef{,}\hlnum{20}\hldef{,}\hlnum{10}\hlopt{/}\hlnum{100}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.7298297
+\end{verbatim}
+\begin{alltt}
+\hldef{one_to_three}\hlkwb{=}\hlkwd{sum}\hldef{(}\hlkwd{dbinom}\hldef{(}\hlnum{1}\hlopt{:}\hlnum{3}\hldef{,}\hlnum{20}\hldef{,}\hlnum{0.10}\hldef{))}
+\hldef{one_to_three}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.74547
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem: \newline
+Show that Binomial distribution variance is less than mean with Binomial
+variable follows ( 7,1/4)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x} \hlkwb{<-} \hlkwd{dbinom}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{7}\hldef{,}\hlkwc{size} \hldef{=} \hlnum{7}\hldef{,} \hlkwc{prob} \hldef{=} \hlnum{1}\hlopt{/}\hlnum{4} \hldef{)}
+\hldef{x}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.334839e-01 3.114624e-01 3.114624e-01 1.730347e-01 5.767822e-02
+## [6] 1.153564e-02 1.281738e-03 6.103516e-05
+\end{verbatim}
+\begin{alltt}
+\hldef{Ex} \hlkwb{<-} \hlkwd{sum}\hldef{(x}\hlopt{*}\hlnum{1}\hlopt{/}\hlnum{4}\hldef{)} \hlcom{#E(x)=np}
+\hldef{Ex}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.25
+\end{verbatim}
+\begin{alltt}
+\hldef{var} \hlkwb{<-} \hlkwd{sum}\hldef{((x}\hlopt{-}\hldef{Ex)}\hlopt{^}\hlnum{2}\hlopt{*}\hldef{x)}
+\hldef{var}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.008062817
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+
+
+
+\section*{Experiment}
+1. Plot Binomial distribution with n=50 and P=0.33\\
+2. For a Binomial(7,1/4) random variable named X,\\
+i. Compute the probability of two success\\
+ii. Compute the Probablities for whole space\\
+iii. Display those probabilities in a table\\
+iv. Show the shape of this binomial Distribution\\
+3. Suppose there are twelve multiple choice questions in an English class quiz.
+Each question has five possible answers, and only one of them is correct. Find the
+probability of having four or less correct answers if a student attempts to answer every
+question at random.
+\newpage
+
+\section{THE POISON DISTRIBUTION}
+Syntax:-
+\begin{itemize}
+\item 	dpois(x, lambda, log = FALSE)
+\item 	ppois(q, lambda, lower.tail = TRUE, log.p = FALSE)
+\item 	qpois(p, lambda, lower.tail = TRUE, log.p = FALSE)
+\item 	rpois(n, lambda)
+\end{itemize}
+Problem:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# a. P(x=5) with parameter 7}
+\hlkwd{dpois}\hldef{(}\hlkwc{x}\hldef{=}\hlnum{5}\hldef{,}\hlkwc{lambda}\hldef{=}\hlnum{7}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.1277167
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# b. #P(x=0)+P(x=1)+……….+P(x=5)}
+\hlkwd{dpois}\hldef{(}\hlkwc{x}\hldef{=}\hlnum{0}\hlopt{:}\hlnum{5}\hldef{,}\hlkwc{lambda}\hldef{=}\hlnum{7}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.000911882 0.006383174 0.022341108 0.052129252 0.091226192 0.127716668
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# c. > #P(x<=5)}
+\hlkwd{sum}\hldef{(}\hlkwd{dpois}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{5}\hldef{,}\hlkwc{lambda}\hldef{=}\hlnum{7}\hldef{))}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.3007083
+\end{verbatim}
+\begin{alltt}
+\hlcom{# or }
+\hlkwd{ppois}\hldef{(}\hlkwc{q}\hldef{=}\hlnum{4}\hldef{,}\hlkwc{lambda}\hldef{=}\hlnum{7}\hldef{,}\hlkwc{lower.tail}\hldef{=T)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.1729916
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{ppois}\hldef{(}\hlkwc{q}\hldef{=}\hlnum{12}\hldef{,}\hlkwc{lambda}\hldef{=}\hlnum{7}\hldef{,}\hlkwc{lower.tail}\hldef{=F)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.02699977
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem :\\ Check the relationship between mean and variance in Poisson distribution(4)
+with n=100
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{X.val}\hlkwb{=}\hlnum{0}\hlopt{:}\hlnum{100}
+\hldef{P.val}\hlkwb{=}\hlkwd{dpois}\hldef{(X.val,}\hlnum{4}\hldef{)}
+\hldef{EX}\hlkwb{=}\hlkwd{sum}\hldef{(X.val}\hlopt{*}\hldef{P.val)} \hlcom{#mean}
+\hldef{EX}
+\end{alltt}
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+\begin{alltt}
+\hlkwd{sum}\hldef{((X.val}\hlopt{-}\hldef{EX)}\hlopt{^}\hlnum{2}\hlopt{*}\hldef{P.val)}
+\end{alltt}
+\begin{verbatim}
+## [1] 4
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem:\\ Compute Probabilities and cumulative probabilities of the values between 0 and
+10 for the parameter 2 in poisson distribution.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{dpois}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,}\hlnum{2}\hldef{)} \hlcom{#}
+\end{alltt}
+\begin{verbatim}
+##  [1] 1.353353e-01 2.706706e-01 2.706706e-01 1.804470e-01 9.022352e-02
+##  [6] 3.608941e-02 1.202980e-02 3.437087e-03 8.592716e-04 1.909493e-04
+## [11] 3.818985e-05
+\end{verbatim}
+\begin{alltt}
+\hlcom{# or}
+\hldef{P}\hlkwb{=}\hlkwd{data.frame}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,}\hlkwd{dpois}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,}\hlnum{2}\hldef{))}
+\hlkwd{round} \hldef{(P,}\hlnum{4}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+##    X0.10 dpois.0.10..2.
+## 1      0         0.1353
+## 2      1         0.2707
+## 3      2         0.2707
+## 4      3         0.1804
+## 5      4         0.0902
+## 6      5         0.0361
+## 7      6         0.0120
+## 8      7         0.0034
+## 9      8         0.0009
+## 10     9         0.0002
+## 11    10         0.0000
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem:\\ Poisson distribution with parameter ‘2’\\
+i)Calculate P(0),P(1),...,P(10) when lambda =2 and Make the output prettier\\
+ii) Find $P(x \leq 6)$\\
+iii) Sum all probabilities\\
+iv)Find $P(Y>6)$\\
+v) Make a table of the first 11 Poisson probs and cumulative probs when  mu=2 and
+make the output prettier\\
+vi) Plot the probabilities Put some labels onthe axes and give the plot a title:
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{round}\hldef{(}\hlkwd{dpois}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,} \hlnum{2}\hldef{),} \hlnum{3}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+##  [1] 0.135 0.271 0.271 0.180 0.090 0.036 0.012 0.003 0.001 0.000 0.000
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{ppois}\hldef{(}\hlnum{6}\hldef{,} \hlnum{2}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.9954662
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{sum}\hldef{(}\hlkwd{dpois}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{6}\hldef{,} \hlnum{2}\hldef{))}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.9954662
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlnum{1} \hlopt{-} \hlkwd{ppois}\hldef{(}\hlnum{6}\hldef{,} \hlnum{2}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.004533806
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+%
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{round}\hldef{(}\hlkwd{cbind}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,} \hlkwd{dpois}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10} \hldef{,}\hlnum{2}\hldef{),} \hlkwd{ppois}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,} \hlnum{2}\hldef{)) ,}\hlnum{3}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+##       [,1]  [,2]  [,3]
+##  [1,]    0 0.135 0.135
+##  [2,]    1 0.271 0.406
+##  [3,]    2 0.271 0.677
+##  [4,]    3 0.180 0.857
+##  [5,]    4 0.090 0.947
+##  [6,]    5 0.036 0.983
+##  [7,]    6 0.012 0.995
+##  [8,]    7 0.003 0.999
+##  [9,]    8 0.001 1.000
+## [10,]    9 0.000 1.000
+## [11,]   10 0.000 1.000
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,}\hlkwd{dpois}\hldef{(}\hlnum{0}\hlopt{:}\hlnum{10}\hldef{,}\hlnum{2}\hldef{),}\hlkwc{type}\hldef{=}\hlsng{"h"}\hldef{,}\hlkwc{xlab}\hldef{=}\hlsng{"y"}\hldef{,}\hlkwc{ylab}\hldef{=}\hlsng{"p(y)"}\hldef{,}
+\hlkwc{main}\hldef{=}\hlsng{"Poisson Distribution (mu=2)"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-29-1} 
+\end{knitrout}
+\section*{Experiment}
+The number of traffic accidents that occur on a particular stretch of road during a month follows a
+Poisson distribution with a mean of 7.6.\\
+1. Find the probability that less than three accidents will occur next month on
+this stretch of road.\\
+2. Find the probability of observing exactly three accidents on this stretch of
+road next month.\\
+3. Find the probability that the next two months will both result in four
+accidents each occurring on this stretch of road.\\
+4. Check the mean and variance of the poisson distribution\\
+5. Plot the Poisson distribution and compare with binomial distribution
+
+
+
+
+\end{document}

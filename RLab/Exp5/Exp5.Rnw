@@ -1,0 +1,303 @@
+\documentclass{article}
+ \date{}
+\title{Statistics for Engineers (MAT2001)- Lab  Experiment-V:  Normal distribution}
+
+\begin{document}
+\maketitle
+ % \tableofcontents
+
+\section{Normal Distribution}
+
+R has four in built functions to generate normal distribution. They are described below.
+
+	\begin{itemize}
+		\item dnorm(x, mean, sd)
+		\item pnorm(x, mean, sd) 
+		\item qnorm(p, mean, sd) 
+		\item rnorm(n, mean, sd)
+		
+	\end{itemize} 
+Following is the description of the parameters used in above functions:
+ x is a vector of numbers.\\
+p is a vector of probabilities.\\
+n is number of observations(sample size).\\
+mean is the mean value of the sample data. It's default value is zero.\\
+sd is the standard deviation. It's default value is 1\\
+\subsection{Normal distribution computations and graphs}
+dnorm() :
+This function gives height of the probability distribution at each point for a given mean and standard deviation.\\
+Problem: \newline
+Create a sequence of numbers between -10 and 10 incrementing by 0.1 then find the probability distribution  for mean as 2.5 and standard deviation as 0.5.
+<<>>=
+x <- seq(-10,10,by=.1)
+x
+y <- dnorm(x, mean= 2.5, sd = 0.5)
+plot(x,y)
+@
+pnorm():
+This function gives the probability of a normally distributed random number to be less that the value of a given number. It is also called "Cumulative Distribution Function".\\
+Problem: \newline
+Create a sequence of numbers between -10 and 10 incrementing by 0.1 then find the cumulative distribution  for mean as 2.5 and standard deviation as 2.
+<<>>=
+x <- seq(-10,10,by=.2)
+y <- pnorm(x,mean=2.5,sd = 2)
+plot(x,y)
+@
+qnorm():-
+This function takes the probability value and gives a number whose cumulative value matches the probability value.\\
+Problem: \newline
+Create a sequence of probability values incrementing by 0.02. Give the cumulative value matches for mean as 2 and standard deviation as 3.
+<<>>=
+x <- seq(0,1,by=0.02)
+y <- qnorm(x,mean=2,sd=1)
+plot(x,y, col="red")
+@
+rnorm()
+This function is used to generate random numbers whose distribution is normal. It takes the sample size as input and generates that many random numbers. We draw a histogram to show the distribution of the generated numbers.\\
+Problem: \newline
+Create a sample of 50 numbers which are normally distributed.
+<<>>=
+y <- rnorm(50)
+hist(y, main = "Normal DIstribution")
+@
+
+\subsection{Standard Normal Probability Distribution Plotting and Finding the Area}
+Problem: \newline
+create a standard normal distribution sequence of 200 numbers, beginning at x=-3 and ending at x=3
+<<>>=
+x=seq(-3,3,length=200)
+y=dnorm(x,mean=0,sd=1)
+plot(x,y,type="l")
+@
+Problem: \newline
+Find the area under the curve to left of the mean then find the area
+<<>>=
+x=seq(-3,3,length=200)
+y=dnorm(x,mean=0,sd=1)
+plot(x,y,type="l")
+x=seq(-3,0,length=100)
+y=dnorm(x,mean=0,sd=1)
+polygon(c(-3,x,0),c(0,y,0),col="green")
+pnorm(0,mean=0,sd=1)
+#
+@
+Problem: \newline 
+Find the area to the left of 1. First, draw an image, then compute the area.
+<<>>=
+x=seq(-3,3,length=200)
+y=dnorm(x,mean=0,sd=1)
+plot(x,y,type="l")
+x=seq(-3,1,length=100)
+y=dnorm(x,mean=0,sd=1)
+polygon(c(-3,x,1),c(0,y,0),col="red")
+pnorm(1,mean=0,sd=1)
+@
+Problem: \newline 
+Get the area to the right of 2. First, draw an image, then compute the area.
+<<>>=
+x=seq(-3,3,length=200)
+y=dnorm(x,mean=0,sd=1)
+plot(x,y,type="l")
+x=seq(2,3,length=100)
+y=dnorm(x,mean=0,sd=1)
+polygon(c(2,x,3),c(0,y,0),col="red")
+1-pnorm(2,mean=0,sd=1)
+@
+Problem: \newline 
+Use the pnorm command to find areas under the normal density curve, regardless of the mean and standard deviation values. Example, mean=50 and standard deviation=10.
+<<>>=
+x=seq(20,80,length=200)
+y=dnorm(x,mean=50,sd=10)
+plot(x,y,type="l")
+x=seq(30,70,length=100)
+y=dnorm(x,mean=50,sd=10)
+polygon(c(30,x,70),c(0,y,0),col="red")
+pnm <- pnorm(70,mean=50,sd=10)-pnorm(30,mean=50,sd=10)
+text(50, 0.02,round(pnm, 2))
+@
+Finding the Quantile (Percentile)
+<<>>=
+x=seq(-3,3,length=200)
+y=dnorm(x,mean=0,sd=1)
+plot(x,y,type="l")
+x=seq(-3,-0.2533,length=100)
+
+y=dnorm(x,mean=0,sd=1)
+polygon(c(-3,x,-0.2533),c(0,y,0),col="red")
+text(-1,0.1,"0.40")
+qnorm(0.40,mean=0,sd=1)
+pnorm(-0.2533, 0, 1)
+@
+Find $P(0<Z<1.24)$
+<<>>=
+plot.new()
+curve(dnorm, xlim = c(-3, 3), ylim = c(0, 0.5), xlab = "z", 
+      ylab="f(z)")
+zleft = 0
+zright = 1.24
+x = c(zleft, seq(zleft, zright, by=.001), zright)
+y = c(0, dnorm(seq(zleft, zright, by=.001)), 0)
+polygon(x, y, col="red")
+@
+
+Find $P(Z>-1.24)$
+<<>>=
+1 - pnorm(-1.24)
+plot.new()
+curve(dnorm, xlim = c(-3, 3), ylim = c(0, 0.5), xlab = "z", 
+      ylab="f(z)")
+z = -1.24
+x = c(z, seq(z, 3, by=.001), 3)
+y = c(0, dnorm(seq(z, 3, by=.001)), 0)
+polygon(x, y, col="red")
+
+@
+Find the 85th percentile of the standard normal “z” distribution.
+<<>>=
+qnorm(0.85)
+
+plot.new()
+curve(dnorm, xlim = c(-3, 3), ylim = c(0, 0.5), xlab = "z",
+      ylab="f(z)")
+prob = 0.85
+x = c(-3, seq(-3, qnorm(prob), by=.001), qnorm(prob))
+y = c(0, dnorm(seq(-3, qnorm(prob), by=.001)), 0)
+polygon(x, y, col="red")
+@
+Plot a normal density for a range of x from –10 to 10 with mean 0 and standard deviation 1:(This Problem Explains types of kurtosis by changing standard deviation)
+<<>>=
+x<-seq(-10,10,length=100)
+plot(x,dnorm(x,0,1),xlab="x", ylab="f(x)", type='l', main="Normal PDF")
+par(mfrow=c(3,1))
+plot(x,dnorm(x,0,1),xlab="x",ylab="f(x)", type='l', main="Normal PDF,scale 2")
+plot(x,dnorm(x,0,2),xlab="x",ylab="f(x)", type='l',main="Normal PDF, scale 5")
+plot(x,dnorm(x,0,5),xlab="x",ylab="f(x)", type='l',main="Normal PDF, scale 5")
+@
+
+Normal distribution Cumulative Distribution Function with different scale parameters
+<<>>=
+par(mfrow=c(3,1))
+plot(x,pnorm(x,0,1),xlab="x",ylab="f(x)", type='l', main="Normal CDF scale 1")
+plot(x,pnorm(x,0,2),xlab="x", ylab="f(x)", type='l', main="Normal CDF scale 2")
+plot(x,pnorm(x,0,5),xlab="x", ylab="f(x)", type='l', main="Normal CDF scale 5")
+
+@
+
+In a photographic process the developing times of prints may be looked
+upon as a random variable having the normal distribution with a mean of 16.28
+seconds and a standard deviation 0.12 second. Find the probability that it will take
+(i) Atleast 16.20 seconds to develop one of the prints;
+(ii) atmost 16.35 seconds to develop one of the prints  
+\\
+Solution: i) $P(X\geq 16.20)=P(Z\geq -0.6667) $
+\\
+ii)$P(X\leq 16.35)=P(X\leq 0.5833)=0.5+0.2190=0.7190 $
+<<>>=
+(1-pnorm (-0.6667))
+plot.new()
+curve (dnorm, xlim = c(-3, 3), ylim = c(0, 0.5), xlab = "z", 
+       ylab="f(z)")
+z = -0.6667
+x = c(z, seq(z, 3, by=.001), 3)
+y = c(0, dnorm(seq(z, 3, by=.001)), 0)
+polygon(x, y, col="red")
+@
+
+<<>>=
+pnorm(0.5833)
+plot.new()
+curve (dnorm, xlim = c(-3, 3), ylim = c(0, 0.5), xlab = "z", 
+       ylab="f(z)")
+z = 0.5833
+x = c(z, seq(z, 3, by=.001), 3)
+y = c(0, dnorm(seq(z, 3, by=.001)), 0)
+polygon(x, y, col="red")
+@
+
+
+
+
+\subsection{GENERAL NORMAL PROBABILITY DISTRIBUTIONS}
+Problem\\
+Suppose X is normal with mean 527 and standard deviation 105.
+Compute $P(X \leq 310)$.
+<<>>=
+pnorm(310,527,105)
+@
+Problem\\
+If $X~N(\mu=100 pts,\sigma=15pts) $\\
+i)Find $P(80 pts<X <95 pts)$
+<<>>=
+pnorm(95, mean=100, sd=15) - pnorm(80, mean=100, sd=15)
+
+@
+ii)Find $P(X >125 pts)$.
+<<>>=
+1 - pnorm(125, mean=100, sd=15)
+@
+iii) Find $P_{75}$ , the 75th percentile of the above distribution. This is the same as the 0.75 quantile.\\
+Problem\\
+The weekly wages of 1000 workmen are normally distributed around a mean of Rs. 70 with S.D of Rs 5.Estimate the number of workers whose weekly wages will be
+(i) Between Rs 69 and Rs 72
+(ii) Less than Rs 69
+(iii) More than Rs 72\\
+<<>>=
+( pnorm(72, mean=70, sd=5) - pnorm(69, mean=70, sd=5))*1000
+@
+<<>>=
+(pnorm(69, mean=70, sd=5))*1000
+@
+<<>>=
+(1 - pnorm(72, mean=70, sd=5))*1000
+@
+Problem\\
+In a test on 2000 Electric bulbs ,it was found that the life of particular make, was normally distributed with an average life of 2040 hours and S.D of 60 hours. Estimate the number of bulbs likely to burn for
+(i) More than 2150 hours
+(ii) Less than 1950 hours
+(iii) More than 1920 hours but less than 2160 hours
+
+<<>>=
+(1 - pnorm(2150, mean=2040, sd=60))*2000
+# The number of bulbs expected to burn for more than 2150 hours is
+# 67 (approximately)
+@
+<<>>=
+(pnorm(1950, mean=2040, sd=60))*2000
+# The number of bulbs expected to burn for less than 1950 hours 
+# is 134 (approximately)
+@
+<<>>=
+( pnorm(2160, mean=2040, sd=60) - pnorm(1920, mean=2040,
+sd=60))*2000
+# The number of bulbs expected to burn more than 1920 hours but
+# less than 2160 is 1909 (approximately)
+@
+
+\subsection{BINOMIAL DISTRIBUTION TENDS TO NORMAL DISTRIBUTION AS ‘n’ TENDS TO INFINITY:}
+Binomial distribution tends to Normal distribution
+<<>>=
+n=5;p=.25
+x=rbinom(100,n,p)
+hist(x,probability=TRUE,)
+ ## use points, not curve as dbinom wants integers only for x
+xvals=0:n;points(xvals,dbinom(xvals,n,p),type="h",lwd=3)
+points(xvals,dbinom(xvals,n,p),type="p",lwd=3)
+@
+
+\section*{Experiment}
+
+1. Find i) $P(0.8\leq Z\leq 1.5)$ ii)$P(Z\leq 2)$ iii) $P(Z \geq 1)$
+Find These probability values and Plot the graph.\\
+(Standard Normal distribution)\\
+2.If mean=70 and Standard deviation is 16
+i)$P(38\leq X \leq 46)$  ii) $P(82\leq X \leq 94)$  iii) $P(62\leq X \leq 86)$\\
+(General Normal Distribution.)\\
+3. 1000 students had Written an examination the mean of test is 35 and
+standard deviation is 5.Assumning the to be normal find
+i) How many students Marks Lie between 25 and 40
+ii) How many students get more than 40
+iii) How many students get below 20
+iv) How many students get 50\\
+(Standard Normal distribution or General Normal Distribution)\\
+
+\end{document}

@@ -1,0 +1,308 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+ \date{}
+\title{\textbf{Statistics for Engineers (MAT2001)- Lab  Experiment-VIII:   Chi-square Test}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\maketitle
+\section{Chi-square test for independence of attributes }
+\begin{verbatim}
+chisq.test(x, y = NULL, p )
+
+
+\end{verbatim}
+\begin{itemize}
+  \item x - a numeric vector or matrix. x and y can also both be factors.
+  \item y - a numeric vector; ignored if x is a matrix. If x is a factor, y should be a factor of the same length.\item p - a vector of probabilities of the same length as x. An error is given if any entry of p is negative.
+\end{itemize}
+\emph{The below table gives the distribution of students according to the family type and the anxiety level
+}
+\begin{table}[h]
+\begin{tabular}{|c|ccc|}
+\hline
+Family         & \multicolumn{3}{c|}{Anxiety level}                            \\ \hline
+               & \multicolumn{1}{c|}{Low} & \multicolumn{1}{c|}{Normal} & High \\ \hline
+Joint family   & \multicolumn{1}{c|}{35}  & \multicolumn{1}{c|}{42}     & 61   \\ \hline
+Nuclear family & \multicolumn{1}{c|}{48}  & \multicolumn{1}{c|}{51}     & 68   \\ \hline
+\end{tabular}
+\end{table}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{family} \hlkwb{<-} \hlkwd{matrix}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{35}\hldef{,} \hlnum{42}\hldef{,} \hlnum{61}\hldef{,} \hlnum{48}\hldef{,} \hlnum{51}\hldef{,} \hlnum{68}\hldef{),} \hlkwc{nrow} \hldef{=} \hlnum{2}\hldef{,} \hlkwc{byrow} \hldef{=} \hlnum{TRUE}\hldef{)}
+\hldef{family}
+\end{alltt}
+\begin{verbatim}
+##      [,1] [,2] [,3]
+## [1,]   35   42   61
+## [2,]   48   51   68
+\end{verbatim}
+\begin{alltt}
+\hlkwd{chisq.test}\hldef{(family)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  family
+## X-squared = 0.53441, df = 2, p-value = 0.7655
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Here P value $0.7655> 0.05$. Hence there is no evidence to reject the null hypothesis. So we consider the anxiety level and family type as independent.\\ \\
+\emph{In the built-in data set survey, the Smoke column records the students smoking habit, while the Exer column records their exercise level. The allowed values in Smoke are "Heavy", "Regul" (regularly), "Occas" (occasionally) and "Never". As for Exer, they are "Freq" (frequently), "Some" and "None". We can tally the students smoking habit against the exercise level with the table function in R. The result is called the contingency table of the two variables. Test the hypothesis whether the students smoking habit is independent of their  exercise level at 5\% significance level. }
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{library}\hldef{(MASS)}
+\hldef{data} \hlkwb{<-} \hlkwd{table}\hldef{(survey}\hlopt{$}\hldef{Smoke, survey}\hlopt{$}\hldef{Exer)}
+\hldef{data}
+\end{alltt}
+\begin{verbatim}
+##        
+##         Freq None Some
+##   Heavy    7    1    3
+##   Never   87   18   84
+##   Occas   12    3    4
+##   Regul    9    1    7
+\end{verbatim}
+\begin{alltt}
+\hlkwd{chisq.test}\hldef{(data)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in chisq.test(data): Chi-squared approximation may be incorrect}}\begin{verbatim}
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  data
+## X-squared = 5.4885, df = 6, p-value = 0.4828
+\end{verbatim}
+\begin{alltt}
+\hldef{new_data} \hlkwb{<-} \hlkwd{cbind}\hldef{(data[,} \hlsng{"Freq"}\hldef{], data[,} \hlsng{"None"}\hldef{]}\hlopt{+}\hldef{data[,} \hlsng{"Some"}\hldef{])}
+\hldef{new_data}
+\end{alltt}
+\begin{verbatim}
+##       [,1] [,2]
+## Heavy    7    4
+## Never   87  102
+## Occas   12    7
+## Regul    9    8
+\end{verbatim}
+\begin{alltt}
+\hlkwd{chisq.test}\hldef{(new_data)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	Pearson's Chi-squared test
+## 
+## data:  new_data
+## X-squared = 3.2328, df = 3, p-value = 0.3571
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\emph{A biologist is conducting a plant breeding experiment in which plants can have one of four phenotypes. If these phenotypes are caused by a simple Mendelian model, the phenotypes should occur in a 9:3:3:1 ratio. She raises 41 plants with the following phenotypes.\\
+Phenotype: 1 2 3 4\\
+count:
+20 10 7 4\\
+Should she worry that the simple genetic model doesn't work for her phenotypes? }
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{plants} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{20}\hldef{,} \hlnum{10} \hldef{,}\hlnum{7} \hldef{,}\hlnum{4}\hldef{)}
+\hlkwd{chisq.test}\hldef{(plants,} \hlkwc{p}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{9}\hlopt{/}\hlnum{16}\hldef{,} \hlnum{3}\hlopt{/}\hlnum{16}\hldef{,} \hlnum{3}\hlopt{/}\hlnum{16}\hldef{,} \hlnum{1}\hlopt{/}\hlnum{16}\hldef{))}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in chisq.test(plants, p = c(9/16, 3/16, 3/16, 1/16)): Chi-squared approximation may be incorrect}}\begin{verbatim}
+## 
+## 	Chi-squared test for given probabilities
+## 
+## data:  plants
+## X-squared = 1.9702, df = 3, p-value = 0.5786
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+The Chi-squared distribution is only an approximation to the sampling distribution of our test statistic, and the approximation is not very good when the expected cell counts are too small. This is the reason for the warning.
+Here the probability value p is greater than alpha level (0.05), so we do not reject the null hypothesis.
+\\
+\\
+
+
+\emph{A survey of 320 families with 5 children each revealed the following distribution:\\
+Number of Boys:
+5
+4
+3
+2\\
+No of Girls:
+0
+1
+2
+3
+4
+5\\
+No of families:
+14 56 110
+88  40  12\\
+Is this result consistent with the hypothesis that male and female births are equally possible?
+}\\
+Solution:
+Let us setup the null hypothesis that the data are consistent with the hypothesis of equal probability for male and female births.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{5}\hldef{,} \hlnum{4}\hldef{,} \hlnum{3}\hldef{,} \hlnum{2} \hldef{,}\hlnum{1}\hldef{)}
+\hldef{n}\hlkwb{=}\hlnum{5}
+\hldef{N}\hlkwb{=}\hlnum{320}
+\hldef{p} \hlkwb{<-} \hlnum{0.5}
+\hldef{cbf} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{14}\hldef{,} \hlnum{56}\hldef{,} \hlnum{110}\hldef{,} \hlnum{88}\hldef{,} \hlnum{40}\hldef{,} \hlnum{12}\hldef{)}
+\hldef{exf} \hlkwb{<-} \hlkwd{dbinom}\hldef{(x, n, p)}\hlopt{*}\hldef{N}
+\hldef{exf}
+\end{alltt}
+\begin{verbatim}
+## [1]  10  50 100 100  50
+\end{verbatim}
+\begin{alltt}
+\hldef{chisq} \hlkwb{<-} \hlkwd{sum}\hldef{((cbf}\hlopt{-}\hldef{exf)}\hlopt{^}\hlnum{2}\hlopt{/}\hldef{exf)}
+\end{alltt}
+
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in cbf - exf: longer object length is not a multiple of shorter object length}}
+
+{\ttfamily\noindent\color{warningcolor}{\#\# Warning in (cbf - exf)\textasciicircum{}2/exf: longer object length is not a multiple of shorter object length}}\begin{alltt}
+\hldef{chisq}
+\end{alltt}
+\begin{verbatim}
+## [1] 7.16
+\end{verbatim}
+\begin{alltt}
+\hlkwd{qchisq}\hldef{(}\hlnum{0.95}\hldef{,} \hlnum{5}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 11.0705
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Calculated value of chi-square is less than the tabulated value,it is not significant at 5\% level of significance and hence the null hypothesis of equal probability for male and female births.
+\\
+\\
+\emph{
+Fit a Poisson distribution to the following data and test the goodness of fit\\
+X: 0 1
+2 3 4 5 6\\
+f: 275 72 30 7 5 2 1}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x} \hlkwb{=} \hlnum{0}\hlopt{:}\hlnum{6}
+\hldef{f} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{275}\hldef{,} \hlnum{72}\hldef{,} \hlnum{30}\hldef{,} \hlnum{7}\hldef{,} \hlnum{5}\hldef{,} \hlnum{2}\hldef{,} \hlnum{1}\hldef{)}
+\hldef{f}
+\end{alltt}
+\begin{verbatim}
+## [1] 275  72  30   7   5   2   1
+\end{verbatim}
+\begin{alltt}
+\hldef{N} \hlkwb{<-} \hlkwd{sum}\hldef{(f)}
+\hldef{lambda} \hlkwb{<-} \hldef{(}\hlkwd{sum}\hldef{(f}\hlopt{*}\hldef{x))}\hlopt{/}\hldef{N}
+\hldef{exf} \hlkwb{<-} \hlkwd{dpois}\hldef{(x, lambda)}\hlopt{*}\hldef{N}
+\hldef{exf} \hlkwb{<-} \hlkwd{round}\hldef{(exf)}
+\hldef{exf}
+\end{alltt}
+\begin{verbatim}
+## [1] 242 117  28   5   1   0   0
+\end{verbatim}
+\begin{alltt}
+\hldef{new_obs} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{75}\hldef{,} \hlnum{72}\hldef{,} \hlnum{30}\hldef{,} \hlnum{15}\hldef{)}
+\hldef{new_exf} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{242}\hldef{,} \hlnum{117}\hldef{,} \hlnum{28}\hldef{,} \hlnum{6}\hldef{)}
+\hldef{chisq} \hlkwb{<-}  \hlkwd{sum}\hldef{((new_obs}\hlopt{-}\hldef{new_exf)}\hlopt{^}\hlnum{2}\hlopt{/}\hldef{new_exf)}
+\hldef{chisq}
+\end{alltt}
+\begin{verbatim}
+## [1] 146.1944
+\end{verbatim}
+\begin{alltt}
+\hlkwd{qchisq}\hldef{(}\hlnum{0.95}\hldef{,} \hlnum{2}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 5.991465
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+Since calculated value of $x=146.1944$ is much greater than 5.99, it is highly significant
+Hence we conclude that poisson distribution is not good fit to the given data
+\section*{Experiment}
+\begin{enumerate}
+  \item 
+The following data come from a hypothetical survey of 920 people (Men, Women) preference of one of the three ice cream flavors. Is there any association between gender and preference for ice
+cream flavors.
+\begin{table}[h]
+\begin{tabular}{llll}
+      & Chocolate & Vanilla & Strawberry \\
+Men   & 100       & 120     & 60         \\
+Women & 350       & 320     & 150       
+\end{tabular}
+\end{table}
+\item As a part of quality improvement project focused on a delivery of mail at a department office within a large company, data were gathered on the number of different addresses that had to be changed so that the mail could be redirected to thee correct mail stop. Table shows the frequency distribution. Fit binomial distribution and test goodness of fit\\
+x:
+0 1
+2
+3
+4\\
+fx: 5 20
+45 20 10
+\end{enumerate}
+
+\end{document}

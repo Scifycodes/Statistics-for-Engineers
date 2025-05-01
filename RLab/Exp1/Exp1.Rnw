@@ -1,0 +1,204 @@
+\documentclass{article}
+ \date{}
+\title{Statistics for Engineers (MAT2001)- Lab  Experiment-I:  Descriptive Statistics}
+
+\begin{document}
+\maketitle
+ % \tableofcontents
+
+\section{Measure of central tendency}
+\subsection{Ungrouped data}
+Problem: \newline
+Twenty students, graduates and undergraduates, were enrolled in
+a statistics course. Their ages were
+18,19,19,19,19,20,20,20,20,20,21,21,21,21,22,23,24,27,30,36.
+a) Find Mean and Median of all students
+b) Find median age of all students under 25 years.
+c) Find modal age of all students
+<<>>=
+x=c(18,19,19,19,19,20,20,20,20,20,21,21,21,21,22,23,24,27,30,36)
+print(x)
+print(mean(x)) 
+print(median(x) )
+
+y=x[x<25] 
+md=median(y)
+print(md)
+
+#mode
+xr=table(x) 
+xr
+mode=which(xr==max(xr))
+print(mode)
+@
+\subsection{Grouped data}
+Problem:
+A survey of 25 faculty members is taken in a college to study their
+vocational mobility.They were asked the question “In addition to your present
+position,at how many educational instistutes have served on the
+faculty?.Following is the frequency distribution of their responses. Find mean and median of the distribution
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+        \textbf{X} & 0 & 1 & 2 & 3 \\ \hline
+        \textbf{f} & 8 & 11 & 5 & 1 \\ \hline
+    \end{tabular}
+\end{table}
+<<>>=
+x=c(0,1,2,3)
+f=c(8,11,5,1)
+y=rep(x,f)
+y
+mean=(sum(y))/(length(y)) #mean
+mean
+
+median(y) #median
+@
+Problem: Compute mean, median and mode of for the following frequency
+distribution
+
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+    \hline
+        Height in cm & 145-150 & 150-155 & 155-160 & 160-165 & 165-170 & 170-175 & 175-180 & 180-185 \\ \hline
+        No. of Adult  men & 4 & 6 & 28 & 58 & 64 & 30 & 5 & 5 \\ \hline
+    \end{tabular}}
+\end{table}
+<<>>=
+mid=seq(147.5,182.5,5)
+mid
+f=c(4,6,28,58,64,30,5,5)
+fr_dist=data.frame(mid,f)
+fr_dist
+mean=(sum(mid*f))/sum(f)
+mean
+midx=seq(147.5,182.5,5)
+frequency=c(4,6,28,58,64,30,5,5)
+fr_dist<-data.frame(midx,frequency)
+fr_dist
+
+cl=cumsum(frequency)
+cl
+fr_dist$cf = cl
+fr_dist
+n=sum(frequency)
+n
+ml=min(which(cl>=n/2))# The serial number of the median class
+ml
+h=5
+h
+f=frequency[ml] #frequency of the median class
+f
+c=cl[ml-1] # cumulative frequency of the median class
+c
+l=mid[ml]-h/2
+l
+median=l+(((n/2)-c)/f)*h #median
+median
+m=which(frequency==max(frequency)) #serial number of the median class
+m
+fm=frequency[m] # frequency of the modal class
+fm
+f1=frequency[m-1] # frequency of the pre modal class
+f2=frequency[m+1] # frequency of the post modal class
+f1
+f2
+l=midx[m]-h/2
+l
+mode=l+((fm-f1)/(2*fm-f1-f2))*h
+mode
+@
+\section{Measure of dispersion}
+
+An entomologist studying morphological variation in species of mosquito
+recorded the following data on body length:
+1.2,1.4,1.3,1.6,1.0,1.5,1.7,1.1,1.2,1.3.
+Compute all the measures of dispersion.
+<<>>=
+x=c(1.2,1.4,1.3,1.6,1.0,1.5,1.7,1.1,1.2,1.3)
+x
+summary(x)
+range=1.7-1.0 #range
+range
+var(x) #variance
+sd=sqrt(var(x)) #standard deviation
+sd
+# There is no separate command for Quartile deviation Mean deviation.
+# We have to evaluate the expression coefficient of quartile deviation
+qd=1.475-1.2
+qd
+cqd=(1.475-1.2)/(1.475+1.2) 
+cqd
+# Co-efficient of Variation
+cv = (sd/mean(x))*100
+cv
+# Mean deviation about Mean
+y=(x-mean(x))
+y
+y=abs(y)
+y
+mdl=sum(y)/length(y)
+mdl
+#Mean deviation about Median
+z =abs(x-median(x))
+md2=sum(z)/length(z)
+md2
+@
+\section{Data visualization}
+<<>>=
+data()
+@
+
+<<my>>=
+data <- mtcars
+summary(data)
+# line plot
+plot(data$cyl,type="l",main="Cylinder",xlab="Entries",
+     ylab="Cylinder values",col="blue")
+
+
+tbl_1 = table(data$am)
+pie(tbl_1, main = "Transmission Pie chart", col =c('blue','red') )
+legend("topright",legend=c("automatic", "manual"),
+       fill=c('blue','red'),bty="n")
+# Bar plot
+barplot(tbl_1,  main = "Transmission Bar plot ",
+        col =c('blue','red'))
+#  Box plot
+boxplot(data$mpg,col=c("blue"), main = "MPG Box plot ")
+# Histogram
+hist(data$mpg, col=c("green"), main = "MPG Histogram ")
+@
+\section{Exercise problem}
+1. Calculate the Mean, Median and Mode for the following data. Draw the  boxplot with title labels.
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+    \hline
+        \textbf{x} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+        \textbf{f} & 8 & 10 & 11 & 16 & 20 & 25 & 15 & 9 & 6 \\ \hline
+    \end{tabular}
+\end{table}
+
+
+2. Calculate the Mean, Median and Mode for the following data. Draw the histogram with title labels.
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+        \textbf{Variable} & 10-13 & 13-16 & 16-19 & 19-22 & 22-25 & 25-28 & 28-31 & 31-34 & 34-37 \\ \hline
+        \textbf{Frequency} & 8 & 15 & 27 & 51 & 75 & 54 & 36 & 18 & 9 \\ \hline
+    \end{tabular}
+\end{table}
+
+
+3. Import `AirPassengers` data set. 
+Find the mean and standard deviation for Jan month of every year.
+ Get summary for  Sep month of every year.
+ Plot the Feb month of every year
+
+
+\end{document}

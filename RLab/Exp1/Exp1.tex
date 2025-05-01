@@ -1,0 +1,534 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+ \date{}
+\title{Statistics for Engineers (MAT2001)- Lab  Experiment-I:  Descriptive Statistics}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\maketitle
+ % \tableofcontents
+
+\section{Measure of central tendency}
+\subsection{Ungrouped data}
+Problem: \newline
+Twenty students, graduates and undergraduates, were enrolled in
+a statistics course. Their ages were
+18,19,19,19,19,20,20,20,20,20,21,21,21,21,22,23,24,27,30,36.
+a) Find Mean and Median of all students
+b) Find median age of all students under 25 years.
+c) Find modal age of all students
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{18}\hldef{,}\hlnum{19}\hldef{,}\hlnum{19}\hldef{,}\hlnum{19}\hldef{,}\hlnum{19}\hldef{,}\hlnum{20}\hldef{,}\hlnum{20}\hldef{,}\hlnum{20}\hldef{,}\hlnum{20}\hldef{,}\hlnum{20}\hldef{,}\hlnum{21}\hldef{,}\hlnum{21}\hldef{,}\hlnum{21}\hldef{,}\hlnum{21}\hldef{,}\hlnum{22}\hldef{,}\hlnum{23}\hldef{,}\hlnum{24}\hldef{,}\hlnum{27}\hldef{,}\hlnum{30}\hldef{,}\hlnum{36}\hldef{)}
+\hlkwd{print}\hldef{(x)}
+\end{alltt}
+\begin{verbatim}
+##  [1] 18 19 19 19 19 20 20 20 20 20 21 21 21 21 22 23 24 27 30 36
+\end{verbatim}
+\begin{alltt}
+\hlkwd{print}\hldef{(}\hlkwd{mean}\hldef{(x))}
+\end{alltt}
+\begin{verbatim}
+## [1] 22
+\end{verbatim}
+\begin{alltt}
+\hlkwd{print}\hldef{(}\hlkwd{median}\hldef{(x) )}
+\end{alltt}
+\begin{verbatim}
+## [1] 20.5
+\end{verbatim}
+\begin{alltt}
+\hldef{y}\hlkwb{=}\hldef{x[x}\hlopt{<}\hlnum{25}\hldef{]}
+\hldef{md}\hlkwb{=}\hlkwd{median}\hldef{(y)}
+\hlkwd{print}\hldef{(md)}
+\end{alltt}
+\begin{verbatim}
+## [1] 20
+\end{verbatim}
+\begin{alltt}
+\hlcom{#mode}
+\hldef{xr}\hlkwb{=}\hlkwd{table}\hldef{(x)}
+\hldef{xr}
+\end{alltt}
+\begin{verbatim}
+## x
+## 18 19 20 21 22 23 24 27 30 36 
+##  1  4  5  4  1  1  1  1  1  1
+\end{verbatim}
+\begin{alltt}
+\hldef{mode}\hlkwb{=}\hlkwd{which}\hldef{(xr}\hlopt{==}\hlkwd{max}\hldef{(xr))}
+\hlkwd{print}\hldef{(mode)}
+\end{alltt}
+\begin{verbatim}
+## 20 
+##  3
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\subsection{Grouped data}
+Problem:
+A survey of 25 faculty members is taken in a college to study their
+vocational mobility.They were asked the question “In addition to your present
+position,at how many educational instistutes have served on the
+faculty?.Following is the frequency distribution of their responses. Find mean and median of the distribution
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|}
+    \hline
+        \textbf{X} & 0 & 1 & 2 & 3 \\ \hline
+        \textbf{f} & 8 & 11 & 5 & 1 \\ \hline
+    \end{tabular}
+\end{table}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,}\hlnum{1}\hldef{,}\hlnum{2}\hldef{,}\hlnum{3}\hldef{)}
+\hldef{f}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{8}\hldef{,}\hlnum{11}\hldef{,}\hlnum{5}\hldef{,}\hlnum{1}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{rep}\hldef{(x,f)}
+\hldef{y}
+\end{alltt}
+\begin{verbatim}
+##  [1] 0 0 0 0 0 0 0 0 1 1 1 1 1 1 1 1 1 1 1 2 2 2 2 2 3
+\end{verbatim}
+\begin{alltt}
+\hldef{mean}\hlkwb{=}\hldef{(}\hlkwd{sum}\hldef{(y))}\hlopt{/}\hldef{(}\hlkwd{length}\hldef{(y))} \hlcom{#mean}
+\hldef{mean}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.96
+\end{verbatim}
+\begin{alltt}
+\hlkwd{median}\hldef{(y)} \hlcom{#median}
+\end{alltt}
+\begin{verbatim}
+## [1] 1
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem: Compute mean, median and mode of for the following frequency
+distribution
+
+\begin{table}[h]
+    \centering
+    \resizebox{\textwidth}{!}{
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|}
+    \hline
+        Height in cm & 145-150 & 150-155 & 155-160 & 160-165 & 165-170 & 170-175 & 175-180 & 180-185 \\ \hline
+        No. of Adult  men & 4 & 6 & 28 & 58 & 64 & 30 & 5 & 5 \\ \hline
+    \end{tabular}}
+\end{table}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{mid}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlnum{147.5}\hldef{,}\hlnum{182.5}\hldef{,}\hlnum{5}\hldef{)}
+\hldef{mid}
+\end{alltt}
+\begin{verbatim}
+## [1] 147.5 152.5 157.5 162.5 167.5 172.5 177.5 182.5
+\end{verbatim}
+\begin{alltt}
+\hldef{f}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{4}\hldef{,}\hlnum{6}\hldef{,}\hlnum{28}\hldef{,}\hlnum{58}\hldef{,}\hlnum{64}\hldef{,}\hlnum{30}\hldef{,}\hlnum{5}\hldef{,}\hlnum{5}\hldef{)}
+\hldef{fr_dist}\hlkwb{=}\hlkwd{data.frame}\hldef{(mid,f)}
+\hldef{fr_dist}
+\end{alltt}
+\begin{verbatim}
+##     mid  f
+## 1 147.5  4
+## 2 152.5  6
+## 3 157.5 28
+## 4 162.5 58
+## 5 167.5 64
+## 6 172.5 30
+## 7 177.5  5
+## 8 182.5  5
+\end{verbatim}
+\begin{alltt}
+\hldef{mean}\hlkwb{=}\hldef{(}\hlkwd{sum}\hldef{(mid}\hlopt{*}\hldef{f))}\hlopt{/}\hlkwd{sum}\hldef{(f)}
+\hldef{mean}
+\end{alltt}
+\begin{verbatim}
+## [1] 165.175
+\end{verbatim}
+\begin{alltt}
+\hldef{midx}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlnum{147.5}\hldef{,}\hlnum{182.5}\hldef{,}\hlnum{5}\hldef{)}
+\hldef{frequency}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{4}\hldef{,}\hlnum{6}\hldef{,}\hlnum{28}\hldef{,}\hlnum{58}\hldef{,}\hlnum{64}\hldef{,}\hlnum{30}\hldef{,}\hlnum{5}\hldef{,}\hlnum{5}\hldef{)}
+\hldef{fr_dist}\hlkwb{<-}\hlkwd{data.frame}\hldef{(midx,frequency)}
+\hldef{fr_dist}
+\end{alltt}
+\begin{verbatim}
+##    midx frequency
+## 1 147.5         4
+## 2 152.5         6
+## 3 157.5        28
+## 4 162.5        58
+## 5 167.5        64
+## 6 172.5        30
+## 7 177.5         5
+## 8 182.5         5
+\end{verbatim}
+\begin{alltt}
+\hldef{cl}\hlkwb{=}\hlkwd{cumsum}\hldef{(frequency)}
+\hldef{cl}
+\end{alltt}
+\begin{verbatim}
+## [1]   4  10  38  96 160 190 195 200
+\end{verbatim}
+\begin{alltt}
+\hldef{fr_dist}\hlopt{$}\hldef{cf} \hlkwb{=} \hldef{cl}
+\hldef{fr_dist}
+\end{alltt}
+\begin{verbatim}
+##    midx frequency  cf
+## 1 147.5         4   4
+## 2 152.5         6  10
+## 3 157.5        28  38
+## 4 162.5        58  96
+## 5 167.5        64 160
+## 6 172.5        30 190
+## 7 177.5         5 195
+## 8 182.5         5 200
+\end{verbatim}
+\begin{alltt}
+\hldef{n}\hlkwb{=}\hlkwd{sum}\hldef{(frequency)}
+\hldef{n}
+\end{alltt}
+\begin{verbatim}
+## [1] 200
+\end{verbatim}
+\begin{alltt}
+\hldef{ml}\hlkwb{=}\hlkwd{min}\hldef{(}\hlkwd{which}\hldef{(cl}\hlopt{>=}\hldef{n}\hlopt{/}\hlnum{2}\hldef{))}\hlcom{# The serial number of the median class}
+\hldef{ml}
+\end{alltt}
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+\begin{alltt}
+\hldef{h}\hlkwb{=}\hlnum{5}
+\hldef{h}
+\end{alltt}
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+\begin{alltt}
+\hldef{f}\hlkwb{=}\hldef{frequency[ml]} \hlcom{#frequency of the median class}
+\hldef{f}
+\end{alltt}
+\begin{verbatim}
+## [1] 64
+\end{verbatim}
+\begin{alltt}
+\hldef{c}\hlkwb{=}\hldef{cl[ml}\hlopt{-}\hlnum{1}\hldef{]} \hlcom{# cumulative frequency of the median class}
+\hldef{c}
+\end{alltt}
+\begin{verbatim}
+## [1] 96
+\end{verbatim}
+\begin{alltt}
+\hldef{l}\hlkwb{=}\hldef{mid[ml]}\hlopt{-}\hldef{h}\hlopt{/}\hlnum{2}
+\hldef{l}
+\end{alltt}
+\begin{verbatim}
+## [1] 165
+\end{verbatim}
+\begin{alltt}
+\hldef{median}\hlkwb{=}\hldef{l}\hlopt{+}\hldef{(((n}\hlopt{/}\hlnum{2}\hldef{)}\hlopt{-}\hldef{c)}\hlopt{/}\hldef{f)}\hlopt{*}\hldef{h} \hlcom{#median}
+\hldef{median}
+\end{alltt}
+\begin{verbatim}
+## [1] 165.3125
+\end{verbatim}
+\begin{alltt}
+\hldef{m}\hlkwb{=}\hlkwd{which}\hldef{(frequency}\hlopt{==}\hlkwd{max}\hldef{(frequency))} \hlcom{#serial number of the median class}
+\hldef{m}
+\end{alltt}
+\begin{verbatim}
+## [1] 5
+\end{verbatim}
+\begin{alltt}
+\hldef{fm}\hlkwb{=}\hldef{frequency[m]} \hlcom{# frequency of the modal class}
+\hldef{fm}
+\end{alltt}
+\begin{verbatim}
+## [1] 64
+\end{verbatim}
+\begin{alltt}
+\hldef{f1}\hlkwb{=}\hldef{frequency[m}\hlopt{-}\hlnum{1}\hldef{]} \hlcom{# frequency of the pre modal class}
+\hldef{f2}\hlkwb{=}\hldef{frequency[m}\hlopt{+}\hlnum{1}\hldef{]} \hlcom{# frequency of the post modal class}
+\hldef{f1}
+\end{alltt}
+\begin{verbatim}
+## [1] 58
+\end{verbatim}
+\begin{alltt}
+\hldef{f2}
+\end{alltt}
+\begin{verbatim}
+## [1] 30
+\end{verbatim}
+\begin{alltt}
+\hldef{l}\hlkwb{=}\hldef{midx[m]}\hlopt{-}\hldef{h}\hlopt{/}\hlnum{2}
+\hldef{l}
+\end{alltt}
+\begin{verbatim}
+## [1] 165
+\end{verbatim}
+\begin{alltt}
+\hldef{mode}\hlkwb{=}\hldef{l}\hlopt{+}\hldef{((fm}\hlopt{-}\hldef{f1)}\hlopt{/}\hldef{(}\hlnum{2}\hlopt{*}\hldef{fm}\hlopt{-}\hldef{f1}\hlopt{-}\hldef{f2))}\hlopt{*}\hldef{h}
+\hldef{mode}
+\end{alltt}
+\begin{verbatim}
+## [1] 165.75
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\section{Measure of dispersion}
+
+An entomologist studying morphological variation in species of mosquito
+recorded the following data on body length:
+1.2,1.4,1.3,1.6,1.0,1.5,1.7,1.1,1.2,1.3.
+Compute all the measures of dispersion.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{1.2}\hldef{,}\hlnum{1.4}\hldef{,}\hlnum{1.3}\hldef{,}\hlnum{1.6}\hldef{,}\hlnum{1.0}\hldef{,}\hlnum{1.5}\hldef{,}\hlnum{1.7}\hldef{,}\hlnum{1.1}\hldef{,}\hlnum{1.2}\hldef{,}\hlnum{1.3}\hldef{)}
+\hldef{x}
+\end{alltt}
+\begin{verbatim}
+##  [1] 1.2 1.4 1.3 1.6 1.0 1.5 1.7 1.1 1.2 1.3
+\end{verbatim}
+\begin{alltt}
+\hlkwd{summary}\hldef{(x)}
+\end{alltt}
+\begin{verbatim}
+##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##   1.000   1.200   1.300   1.330   1.475   1.700
+\end{verbatim}
+\begin{alltt}
+\hldef{range}\hlkwb{=}\hlnum{1.7}\hlopt{-}\hlnum{1.0} \hlcom{#range}
+\hldef{range}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.7
+\end{verbatim}
+\begin{alltt}
+\hlkwd{var}\hldef{(x)} \hlcom{#variance}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.049
+\end{verbatim}
+\begin{alltt}
+\hldef{sd}\hlkwb{=}\hlkwd{sqrt}\hldef{(}\hlkwd{var}\hldef{(x))} \hlcom{#standard deviation}
+\hldef{sd}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.2213594
+\end{verbatim}
+\begin{alltt}
+\hlcom{# There is no separate command for Quartile deviation Mean deviation.}
+\hlcom{# We have to evaluate the expression coefficient of quartile deviation}
+\hldef{qd}\hlkwb{=}\hlnum{1.475}\hlopt{-}\hlnum{1.2}
+\hldef{qd}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.275
+\end{verbatim}
+\begin{alltt}
+\hldef{cqd}\hlkwb{=}\hldef{(}\hlnum{1.475}\hlopt{-}\hlnum{1.2}\hldef{)}\hlopt{/}\hldef{(}\hlnum{1.475}\hlopt{+}\hlnum{1.2}\hldef{)}
+\hldef{cqd}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.1028037
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Co-efficient of Variation}
+\hldef{cv} \hlkwb{=} \hldef{(sd}\hlopt{/}\hlkwd{mean}\hldef{(x))}\hlopt{*}\hlnum{100}
+\hldef{cv}
+\end{alltt}
+\begin{verbatim}
+## [1] 16.64357
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Mean deviation about Mean}
+\hldef{y}\hlkwb{=}\hldef{(x}\hlopt{-}\hlkwd{mean}\hldef{(x))}
+\hldef{y}
+\end{alltt}
+\begin{verbatim}
+##  [1] -0.13  0.07 -0.03  0.27 -0.33  0.17  0.37 -0.23 -0.13 -0.03
+\end{verbatim}
+\begin{alltt}
+\hldef{y}\hlkwb{=}\hlkwd{abs}\hldef{(y)}
+\hldef{y}
+\end{alltt}
+\begin{verbatim}
+##  [1] 0.13 0.07 0.03 0.27 0.33 0.17 0.37 0.23 0.13 0.03
+\end{verbatim}
+\begin{alltt}
+\hldef{mdl}\hlkwb{=}\hlkwd{sum}\hldef{(y)}\hlopt{/}\hlkwd{length}\hldef{(y)}
+\hldef{mdl}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.176
+\end{verbatim}
+\begin{alltt}
+\hlcom{#Mean deviation about Median}
+\hldef{z} \hlkwb{=}\hlkwd{abs}\hldef{(x}\hlopt{-}\hlkwd{median}\hldef{(x))}
+\hldef{md2}\hlkwb{=}\hlkwd{sum}\hldef{(z)}\hlopt{/}\hlkwd{length}\hldef{(z)}
+\hldef{md2}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.17
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\section{Data visualization}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{data}\hldef{()}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{data} \hlkwb{<-} \hldef{mtcars}
+\hlkwd{summary}\hldef{(data)}
+\end{alltt}
+\begin{verbatim}
+##       mpg             cyl             disp             hp       
+##  Min.   :10.40   Min.   :4.000   Min.   : 71.1   Min.   : 52.0  
+##  1st Qu.:15.43   1st Qu.:4.000   1st Qu.:120.8   1st Qu.: 96.5  
+##  Median :19.20   Median :6.000   Median :196.3   Median :123.0  
+##  Mean   :20.09   Mean   :6.188   Mean   :230.7   Mean   :146.7  
+##  3rd Qu.:22.80   3rd Qu.:8.000   3rd Qu.:326.0   3rd Qu.:180.0  
+##  Max.   :33.90   Max.   :8.000   Max.   :472.0   Max.   :335.0  
+##       drat             wt             qsec             vs        
+##  Min.   :2.760   Min.   :1.513   Min.   :14.50   Min.   :0.0000  
+##  1st Qu.:3.080   1st Qu.:2.581   1st Qu.:16.89   1st Qu.:0.0000  
+##  Median :3.695   Median :3.325   Median :17.71   Median :0.0000  
+##  Mean   :3.597   Mean   :3.217   Mean   :17.85   Mean   :0.4375  
+##  3rd Qu.:3.920   3rd Qu.:3.610   3rd Qu.:18.90   3rd Qu.:1.0000  
+##  Max.   :4.930   Max.   :5.424   Max.   :22.90   Max.   :1.0000  
+##        am              gear            carb      
+##  Min.   :0.0000   Min.   :3.000   Min.   :1.000  
+##  1st Qu.:0.0000   1st Qu.:3.000   1st Qu.:2.000  
+##  Median :0.0000   Median :4.000   Median :2.000  
+##  Mean   :0.4062   Mean   :3.688   Mean   :2.812  
+##  3rd Qu.:1.0000   3rd Qu.:4.000   3rd Qu.:4.000  
+##  Max.   :1.0000   Max.   :5.000   Max.   :8.000
+\end{verbatim}
+\begin{alltt}
+\hlcom{# line plot}
+\hlkwd{plot}\hldef{(data}\hlopt{$}\hldef{cyl,}\hlkwc{type}\hldef{=}\hlsng{"l"}\hldef{,}\hlkwc{main}\hldef{=}\hlsng{"Cylinder"}\hldef{,}\hlkwc{xlab}\hldef{=}\hlsng{"Entries"}\hldef{,}
+     \hlkwc{ylab}\hldef{=}\hlsng{"Cylinder values"}\hldef{,}\hlkwc{col}\hldef{=}\hlsng{"blue"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/my-1} 
+\begin{kframe}\begin{alltt}
+\hldef{tbl_1} \hlkwb{=} \hlkwd{table}\hldef{(data}\hlopt{$}\hldef{am)}
+\hlkwd{pie}\hldef{(tbl_1,} \hlkwc{main} \hldef{=} \hlsng{"Transmission Pie chart"}\hldef{,} \hlkwc{col} \hldef{=}\hlkwd{c}\hldef{(}\hlsng{'blue'}\hldef{,}\hlsng{'red'}\hldef{) )}
+\hlkwd{legend}\hldef{(}\hlsng{"topright"}\hldef{,}\hlkwc{legend}\hldef{=}\hlkwd{c}\hldef{(}\hlsng{"automatic"}\hldef{,} \hlsng{"manual"}\hldef{),}
+       \hlkwc{fill}\hldef{=}\hlkwd{c}\hldef{(}\hlsng{'blue'}\hldef{,}\hlsng{'red'}\hldef{),}\hlkwc{bty}\hldef{=}\hlsng{"n"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/my-2} 
+\begin{kframe}\begin{alltt}
+\hlcom{# Bar plot}
+\hlkwd{barplot}\hldef{(tbl_1,}  \hlkwc{main} \hldef{=} \hlsng{"Transmission Bar plot "}\hldef{,}
+        \hlkwc{col} \hldef{=}\hlkwd{c}\hldef{(}\hlsng{'blue'}\hldef{,}\hlsng{'red'}\hldef{))}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/my-3} 
+\begin{kframe}\begin{alltt}
+\hlcom{#  Box plot}
+\hlkwd{boxplot}\hldef{(data}\hlopt{$}\hldef{mpg,}\hlkwc{col}\hldef{=}\hlkwd{c}\hldef{(}\hlsng{"blue"}\hldef{),} \hlkwc{main} \hldef{=} \hlsng{"MPG Box plot "}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/my-4} 
+\begin{kframe}\begin{alltt}
+\hlcom{# Histogram}
+\hlkwd{hist}\hldef{(data}\hlopt{$}\hldef{mpg,} \hlkwc{col}\hldef{=}\hlkwd{c}\hldef{(}\hlsng{"green"}\hldef{),} \hlkwc{main} \hldef{=} \hlsng{"MPG Histogram "}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/my-5} 
+\end{knitrout}
+\section{Exercise problem}
+1. Calculate the Mean, Median and Mode for the following data. Draw the  boxplot with title labels.
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+    \hline
+        \textbf{x} & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+        \textbf{f} & 8 & 10 & 11 & 16 & 20 & 25 & 15 & 9 & 6 \\ \hline
+    \end{tabular}
+\end{table}
+
+
+2. Calculate the Mean, Median and Mode for the following data. Draw the histogram with title labels.
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+        \textbf{Variable} & 10-13 & 13-16 & 16-19 & 19-22 & 22-25 & 25-28 & 28-31 & 31-34 & 34-37 \\ \hline
+        \textbf{Frequency} & 8 & 15 & 27 & 51 & 75 & 54 & 36 & 18 & 9 \\ \hline
+    \end{tabular}
+\end{table}
+
+
+3. Import `AirPassengers` data set. 
+Find the mean and standard deviation for Jan month of every year.
+ Get summary for  Sep month of every year.
+ Plot the Feb month of every year
+
+
+\end{document}

@@ -1,0 +1,139 @@
+\documentclass{article}
+ \date{}
+\title{Statistics for Engineers (MAT2001)- Lab  Experiment-II:  Correlation and Regression}
+
+\begin{document}
+\maketitle
+ % \tableofcontents
+
+\section{Karl Pearson’s Coefficient of Correlation}
+\subsection{Scatter Diagram}
+Problem: \newline
+Illustrate the relationship between the average age versus the time spent in the
+library, by using scatterplot.
+\begin{table}[h]
+\begin{tabular}{lccc}
+AGE
+GROUP & REPRESENTATIVE
+AGE & HOURS SPEND IN THE LOCAL
+LIBRARY &    \\
+10-19 & 15  & 302.38  &    \\
+20-29 & 25  & 193.63  &  \\
+30-39 & 35  & 185.46  &   \\
+40-49 & 45  & 198.49  &    \\
+50-59 & 55  & 224.30  &    \\
+60-69 & 65  & 288.71  &  
+\end{tabular}
+\end{table}
+<<>>=
+x <- c(15,25,35,45,55,65)
+x
+y <- c(302.38, 193.63, 185.46, 198.49, 224.30, 288.71)
+y
+# Scatter plot
+plot(x,y, main="Average age vs. time spent in the library", 
+     xlab="Age", ylab="Time spent in the library",col="red")
+
+@
+\subsection{Manual method}
+Problem: \newline
+Find the correlation coefficient for the given data: x=(23,27,28,28,29,30,31,32, 33,35), y=(18,20,22,27,21,29,27,29,28,29). Give a scatter plot to the x and y
+<<>>=
+x=c(23,27,28,28,29,30,31,32, 33,35)
+x
+length(x)
+y=c(18,20,22,27,21,29,27,29,28,29)
+y
+length(y)
+var(x)
+var(y)
+var(x, y)
+r=var(x,y)/sqrt(var(x)*var(y))
+r
+
+@
+Therfore there is positive correlation between the x and y.
+% <<>>=
+% plot(x,y, main="Scatter plot", 
+%      xlab="X", ylab="Y",col="blue")
+% @
+\subsection{Using R code}
+\subsubsection{Method 1}
+<<>>=
+cor(x,y, method ="pearson" )
+@
+\subsubsection{Method 2}
+<<>>=
+cor.test(x,y,method="pearson")
+@
+\section{Spearman's Rank Correlation Coefficient}
+Problem : \newline 
+Twelve recruits were subjected to selection test to ascertain their
+suitability for a certain course of training. At the end of training they were given a
+proficiency test. The marks scored by the recruits are recorded below
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|c|c|c|c|c|c|c|c|c|c|}
+    \hline
+        Recruit & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 \\ \hline
+        Selection Test Score & 44 & 49 & 52 & 54 & 47 & 76 & 65 & 60 & 63 \\ \hline
+        Proficiency Test Scrore & 48 & 55 & 45 & 60 & 43 & 80 & 58 & 50 & 77 \\ \hline
+       
+    \end{tabular}
+\end{table}
+<<>>=
+selection =c(44,49,52,54,47,76,65,60,63,58,50,67)
+proficiency =c(48,55,45,60,43,80,58,50,77,46,47,65)
+cor(selection,proficiency,method ="spearman")
+# (or)
+cor.test(selection,proficiency,method ="spearman")
+@
+There is a positive correlation between selection and proficiency.
+\\ \\ \\
+Problem : \newline 
+Import the iris data set. \\
+i) Find the Pearson correlation coefficient using the manual method for the features sepal length and sepal width when the Species is setosa. Give a plot visualization. Describe the relationship.\\
+ii) Find the rank correlation coefficient for the features petal length and petal width when the Species is versicolor and describe the relationship.\\
+iii) Find the Pearson correlation coefficient for the features petal length and petal width when the Species is virginica and describe the relationship.
+<<>>=
+data <- iris
+head(data)
+setosa_data <- subset(data, Species == "setosa")
+
+r=var(setosa_data$Sepal.Length, setosa_data$Sepal.Width
+      )/sqrt(var(setosa_data$Sepal.Length)*
+               var(setosa_data$Sepal.Width))
+r
+@
+<<>>=
+plot(setosa_data$Sepal.Length, setosa_data$Sepal.Width, 
+     main = "Length vs Width",  xlab ="Sepal Length", 
+     ylab = "Sepal Width", col= "green")
+@
+There is a positive correlation between sepal length and sepal width.
+<<>>=
+versi_data <- subset(data, Species == "versicolor")
+cor(versi_data$Petal.Length, versi_data$Petal.Width, 
+         method = "spearman")
+@
+There is a positive correlation between petal length and petal width.
+<<>>=
+virginica_data <- subset(data, Species == "virginica")
+cor(virginica_data$Petal.Length, virginica_data$Petal.Width, 
+         method = "pearson")
+@
+There is a positive correlation between petal length and petal width.\\ \\
+
+\section*{Experiment}
+1. Import the Orange data set.
+Find the Pearson correlation coefficient for each type of tree age and circumference. Also draw the scatter plot.\\
+2. Import the trees data set. \\
+i) Find the rank correlation for Girth  and Volume. Draw a plot.\\
+ii) Find the rank correlation for Height  and Volume. Draw a plot.
+
+
+
+
+
+
+\end{document}

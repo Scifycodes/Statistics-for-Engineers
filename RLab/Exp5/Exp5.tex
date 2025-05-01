@@ -1,0 +1,584 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+ \date{}
+\title{Statistics for Engineers (MAT2001)- Lab  Experiment-V:  Normal distribution}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\maketitle
+ % \tableofcontents
+
+\section{Normal Distribution}
+
+R has four in built functions to generate normal distribution. They are described below.
+
+	\begin{itemize}
+		\item dnorm(x, mean, sd)
+		\item pnorm(x, mean, sd) 
+		\item qnorm(p, mean, sd) 
+		\item rnorm(n, mean, sd)
+		
+	\end{itemize} 
+Following is the description of the parameters used in above functions:
+ x is a vector of numbers.\\
+p is a vector of probabilities.\\
+n is number of observations(sample size).\\
+mean is the mean value of the sample data. It's default value is zero.\\
+sd is the standard deviation. It's default value is 1\\
+\subsection{Normal distribution computations and graphs}
+dnorm() :
+This function gives height of the probability distribution at each point for a given mean and standard deviation.\\
+Problem: \newline
+Create a sequence of numbers between -10 and 10 incrementing by 0.1 then find the probability distribution  for mean as 2.5 and standard deviation as 0.5.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x} \hlkwb{<-} \hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{10}\hldef{,}\hlnum{10}\hldef{,}\hlkwc{by}\hldef{=}\hlnum{.1}\hldef{)}
+\hldef{x}
+\end{alltt}
+\begin{verbatim}
+##   [1] -10.0  -9.9  -9.8  -9.7  -9.6  -9.5  -9.4  -9.3  -9.2  -9.1  -9.0  -8.9
+##  [13]  -8.8  -8.7  -8.6  -8.5  -8.4  -8.3  -8.2  -8.1  -8.0  -7.9  -7.8  -7.7
+##  [25]  -7.6  -7.5  -7.4  -7.3  -7.2  -7.1  -7.0  -6.9  -6.8  -6.7  -6.6  -6.5
+##  [37]  -6.4  -6.3  -6.2  -6.1  -6.0  -5.9  -5.8  -5.7  -5.6  -5.5  -5.4  -5.3
+##  [49]  -5.2  -5.1  -5.0  -4.9  -4.8  -4.7  -4.6  -4.5  -4.4  -4.3  -4.2  -4.1
+##  [61]  -4.0  -3.9  -3.8  -3.7  -3.6  -3.5  -3.4  -3.3  -3.2  -3.1  -3.0  -2.9
+##  [73]  -2.8  -2.7  -2.6  -2.5  -2.4  -2.3  -2.2  -2.1  -2.0  -1.9  -1.8  -1.7
+##  [85]  -1.6  -1.5  -1.4  -1.3  -1.2  -1.1  -1.0  -0.9  -0.8  -0.7  -0.6  -0.5
+##  [97]  -0.4  -0.3  -0.2  -0.1   0.0   0.1   0.2   0.3   0.4   0.5   0.6   0.7
+## [109]   0.8   0.9   1.0   1.1   1.2   1.3   1.4   1.5   1.6   1.7   1.8   1.9
+## [121]   2.0   2.1   2.2   2.3   2.4   2.5   2.6   2.7   2.8   2.9   3.0   3.1
+## [133]   3.2   3.3   3.4   3.5   3.6   3.7   3.8   3.9   4.0   4.1   4.2   4.3
+## [145]   4.4   4.5   4.6   4.7   4.8   4.9   5.0   5.1   5.2   5.3   5.4   5.5
+## [157]   5.6   5.7   5.8   5.9   6.0   6.1   6.2   6.3   6.4   6.5   6.6   6.7
+## [169]   6.8   6.9   7.0   7.1   7.2   7.3   7.4   7.5   7.6   7.7   7.8   7.9
+## [181]   8.0   8.1   8.2   8.3   8.4   8.5   8.6   8.7   8.8   8.9   9.0   9.1
+## [193]   9.2   9.3   9.4   9.5   9.6   9.7   9.8   9.9  10.0
+\end{verbatim}
+\begin{alltt}
+\hldef{y} \hlkwb{<-} \hlkwd{dnorm}\hldef{(x,} \hlkwc{mean}\hldef{=} \hlnum{2.5}\hldef{,} \hlkwc{sd} \hldef{=} \hlnum{0.5}\hldef{)}
+\hlkwd{plot}\hldef{(x,y)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-1-1} 
+\end{knitrout}
+pnorm():
+This function gives the probability of a normally distributed random number to be less that the value of a given number. It is also called "Cumulative Distribution Function".\\
+Problem: \newline
+Create a sequence of numbers between -10 and 10 incrementing by 0.1 then find the cumulative distribution  for mean as 2.5 and standard deviation as 2.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x} \hlkwb{<-} \hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{10}\hldef{,}\hlnum{10}\hldef{,}\hlkwc{by}\hldef{=}\hlnum{.2}\hldef{)}
+\hldef{y} \hlkwb{<-} \hlkwd{pnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{2.5}\hldef{,}\hlkwc{sd} \hldef{=} \hlnum{2}\hldef{)}
+\hlkwd{plot}\hldef{(x,y)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-2-1} 
+\end{knitrout}
+qnorm():-
+This function takes the probability value and gives a number whose cumulative value matches the probability value.\\
+Problem: \newline
+Create a sequence of probability values incrementing by 0.02. Give the cumulative value matches for mean as 2 and standard deviation as 3.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x} \hlkwb{<-} \hlkwd{seq}\hldef{(}\hlnum{0}\hldef{,}\hlnum{1}\hldef{,}\hlkwc{by}\hldef{=}\hlnum{0.02}\hldef{)}
+\hldef{y} \hlkwb{<-} \hlkwd{qnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{2}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{plot}\hldef{(x,y,} \hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-3-1} 
+\end{knitrout}
+rnorm()
+This function is used to generate random numbers whose distribution is normal. It takes the sample size as input and generates that many random numbers. We draw a histogram to show the distribution of the generated numbers.\\
+Problem: \newline
+Create a sample of 50 numbers which are normally distributed.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{y} \hlkwb{<-} \hlkwd{rnorm}\hldef{(}\hlnum{50}\hldef{)}
+\hlkwd{hist}\hldef{(y,} \hlkwc{main} \hldef{=} \hlsng{"Normal DIstribution"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-4-1} 
+\end{knitrout}
+
+\subsection{Standard Normal Probability Distribution Plotting and Finding the Area}
+Problem: \newline
+create a standard normal distribution sequence of 200 numbers, beginning at x=-3 and ending at x=3
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,}\hlnum{3}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{200}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{plot}\hldef{(x,y,}\hlkwc{type}\hldef{=}\hlsng{"l"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
+\end{knitrout}
+Problem: \newline
+Find the area under the curve to left of the mean then find the area
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,}\hlnum{3}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{200}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{plot}\hldef{(x,y,}\hlkwc{type}\hldef{=}\hlsng{"l"}\hldef{)}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,}\hlnum{0}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{100}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{polygon}\hldef{(}\hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,x,}\hlnum{0}\hldef{),}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,y,}\hlnum{0}\hldef{),}\hlkwc{col}\hldef{=}\hlsng{"green"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-6-1} 
+\begin{kframe}\begin{alltt}
+\hlkwd{pnorm}\hldef{(}\hlnum{0}\hldef{,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.5
+\end{verbatim}
+\begin{alltt}
+\hlcom{#}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+Problem: \newline 
+Find the area to the left of 1. First, draw an image, then compute the area.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,}\hlnum{3}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{200}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{plot}\hldef{(x,y,}\hlkwc{type}\hldef{=}\hlsng{"l"}\hldef{)}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,}\hlnum{1}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{100}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{polygon}\hldef{(}\hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,x,}\hlnum{1}\hldef{),}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,y,}\hlnum{0}\hldef{),}\hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-7-1} 
+\begin{kframe}\begin{alltt}
+\hlkwd{pnorm}\hldef{(}\hlnum{1}\hldef{,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.8413447
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem: \newline 
+Get the area to the right of 2. First, draw an image, then compute the area.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,}\hlnum{3}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{200}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{plot}\hldef{(x,y,}\hlkwc{type}\hldef{=}\hlsng{"l"}\hldef{)}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlnum{2}\hldef{,}\hlnum{3}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{100}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{polygon}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{2}\hldef{,x,}\hlnum{3}\hldef{),}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,y,}\hlnum{0}\hldef{),}\hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-8-1} 
+\begin{kframe}\begin{alltt}
+\hlnum{1}\hlopt{-}\hlkwd{pnorm}\hldef{(}\hlnum{2}\hldef{,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.02275013
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem: \newline 
+Use the pnorm command to find areas under the normal density curve, regardless of the mean and standard deviation values. Example, mean=50 and standard deviation=10.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlnum{20}\hldef{,}\hlnum{80}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{200}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{50}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{10}\hldef{)}
+\hlkwd{plot}\hldef{(x,y,}\hlkwc{type}\hldef{=}\hlsng{"l"}\hldef{)}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlnum{30}\hldef{,}\hlnum{70}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{100}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{50}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{10}\hldef{)}
+\hlkwd{polygon}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{30}\hldef{,x,}\hlnum{70}\hldef{),}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,y,}\hlnum{0}\hldef{),}\hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\hldef{pnm} \hlkwb{<-} \hlkwd{pnorm}\hldef{(}\hlnum{70}\hldef{,}\hlkwc{mean}\hldef{=}\hlnum{50}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{10}\hldef{)}\hlopt{-}\hlkwd{pnorm}\hldef{(}\hlnum{30}\hldef{,}\hlkwc{mean}\hldef{=}\hlnum{50}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{10}\hldef{)}
+\hlkwd{text}\hldef{(}\hlnum{50}\hldef{,} \hlnum{0.02}\hldef{,}\hlkwd{round}\hldef{(pnm,} \hlnum{2}\hldef{))}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-9-1} 
+\end{knitrout}
+Finding the Quantile (Percentile)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,}\hlnum{3}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{200}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{plot}\hldef{(x,y,}\hlkwc{type}\hldef{=}\hlsng{"l"}\hldef{)}
+\hldef{x}\hlkwb{=}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,}\hlopt{-}\hlnum{0.2533}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{100}\hldef{)}
+
+\hldef{y}\hlkwb{=}\hlkwd{dnorm}\hldef{(x,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\hlkwd{polygon}\hldef{(}\hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,x,}\hlopt{-}\hlnum{0.2533}\hldef{),}\hlkwd{c}\hldef{(}\hlnum{0}\hldef{,y,}\hlnum{0}\hldef{),}\hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\hlkwd{text}\hldef{(}\hlopt{-}\hlnum{1}\hldef{,}\hlnum{0.1}\hldef{,}\hlsng{"0.40"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-10-1} 
+\begin{kframe}\begin{alltt}
+\hlkwd{qnorm}\hldef{(}\hlnum{0.40}\hldef{,}\hlkwc{mean}\hldef{=}\hlnum{0}\hldef{,}\hlkwc{sd}\hldef{=}\hlnum{1}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] -0.2533471
+\end{verbatim}
+\begin{alltt}
+\hlkwd{pnorm}\hldef{(}\hlopt{-}\hlnum{0.2533}\hldef{,} \hlnum{0}\hldef{,} \hlnum{1}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.4000182
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Find $P(0<Z<1.24)$
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{plot.new}\hldef{()}
+\hlkwd{curve}\hldef{(dnorm,} \hlkwc{xlim} \hldef{=} \hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,} \hlnum{3}\hldef{),} \hlkwc{ylim} \hldef{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlnum{0.5}\hldef{),} \hlkwc{xlab} \hldef{=} \hlsng{"z"}\hldef{,}
+      \hlkwc{ylab}\hldef{=}\hlsng{"f(z)"}\hldef{)}
+\hldef{zleft} \hlkwb{=} \hlnum{0}
+\hldef{zright} \hlkwb{=} \hlnum{1.24}
+\hldef{x} \hlkwb{=} \hlkwd{c}\hldef{(zleft,} \hlkwd{seq}\hldef{(zleft, zright,} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{), zright)}
+\hldef{y} \hlkwb{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlkwd{dnorm}\hldef{(}\hlkwd{seq}\hldef{(zleft, zright,} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{)),} \hlnum{0}\hldef{)}
+\hlkwd{polygon}\hldef{(x, y,} \hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-11-1} 
+\end{knitrout}
+
+Find $P(Z>-1.24)$
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlnum{1} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlopt{-}\hlnum{1.24}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.8925123
+\end{verbatim}
+\begin{alltt}
+\hlkwd{plot.new}\hldef{()}
+\hlkwd{curve}\hldef{(dnorm,} \hlkwc{xlim} \hldef{=} \hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,} \hlnum{3}\hldef{),} \hlkwc{ylim} \hldef{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlnum{0.5}\hldef{),} \hlkwc{xlab} \hldef{=} \hlsng{"z"}\hldef{,}
+      \hlkwc{ylab}\hldef{=}\hlsng{"f(z)"}\hldef{)}
+\hldef{z} \hlkwb{=} \hlopt{-}\hlnum{1.24}
+\hldef{x} \hlkwb{=} \hlkwd{c}\hldef{(z,} \hlkwd{seq}\hldef{(z,} \hlnum{3}\hldef{,} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{),} \hlnum{3}\hldef{)}
+\hldef{y} \hlkwb{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlkwd{dnorm}\hldef{(}\hlkwd{seq}\hldef{(z,} \hlnum{3}\hldef{,} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{)),} \hlnum{0}\hldef{)}
+\hlkwd{polygon}\hldef{(x, y,} \hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-12-1} 
+\end{knitrout}
+Find the 85th percentile of the standard normal “z” distribution.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{qnorm}\hldef{(}\hlnum{0.85}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.036433
+\end{verbatim}
+\begin{alltt}
+\hlkwd{plot.new}\hldef{()}
+\hlkwd{curve}\hldef{(dnorm,} \hlkwc{xlim} \hldef{=} \hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,} \hlnum{3}\hldef{),} \hlkwc{ylim} \hldef{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlnum{0.5}\hldef{),} \hlkwc{xlab} \hldef{=} \hlsng{"z"}\hldef{,}
+      \hlkwc{ylab}\hldef{=}\hlsng{"f(z)"}\hldef{)}
+\hldef{prob} \hlkwb{=} \hlnum{0.85}
+\hldef{x} \hlkwb{=} \hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,} \hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,} \hlkwd{qnorm}\hldef{(prob),} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{),} \hlkwd{qnorm}\hldef{(prob))}
+\hldef{y} \hlkwb{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlkwd{dnorm}\hldef{(}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,} \hlkwd{qnorm}\hldef{(prob),} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{)),} \hlnum{0}\hldef{)}
+\hlkwd{polygon}\hldef{(x, y,} \hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-13-1} 
+\end{knitrout}
+Plot a normal density for a range of x from –10 to 10 with mean 0 and standard deviation 1:(This Problem Explains types of kurtosis by changing standard deviation)
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{<-}\hlkwd{seq}\hldef{(}\hlopt{-}\hlnum{10}\hldef{,}\hlnum{10}\hldef{,}\hlkwc{length}\hldef{=}\hlnum{100}\hldef{)}
+\hlkwd{plot}\hldef{(x,}\hlkwd{dnorm}\hldef{(x,}\hlnum{0}\hldef{,}\hlnum{1}\hldef{),}\hlkwc{xlab}\hldef{=}\hlsng{"x"}\hldef{,} \hlkwc{ylab}\hldef{=}\hlsng{"f(x)"}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{'l'}\hldef{,} \hlkwc{main}\hldef{=}\hlsng{"Normal PDF"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-14-1} 
+\begin{kframe}\begin{alltt}
+\hlkwd{par}\hldef{(}\hlkwc{mfrow}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{3}\hldef{,}\hlnum{1}\hldef{))}
+\hlkwd{plot}\hldef{(x,}\hlkwd{dnorm}\hldef{(x,}\hlnum{0}\hldef{,}\hlnum{1}\hldef{),}\hlkwc{xlab}\hldef{=}\hlsng{"x"}\hldef{,}\hlkwc{ylab}\hldef{=}\hlsng{"f(x)"}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{'l'}\hldef{,} \hlkwc{main}\hldef{=}\hlsng{"Normal PDF,scale 2"}\hldef{)}
+\hlkwd{plot}\hldef{(x,}\hlkwd{dnorm}\hldef{(x,}\hlnum{0}\hldef{,}\hlnum{2}\hldef{),}\hlkwc{xlab}\hldef{=}\hlsng{"x"}\hldef{,}\hlkwc{ylab}\hldef{=}\hlsng{"f(x)"}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{'l'}\hldef{,}\hlkwc{main}\hldef{=}\hlsng{"Normal PDF, scale 5"}\hldef{)}
+\hlkwd{plot}\hldef{(x,}\hlkwd{dnorm}\hldef{(x,}\hlnum{0}\hldef{,}\hlnum{5}\hldef{),}\hlkwc{xlab}\hldef{=}\hlsng{"x"}\hldef{,}\hlkwc{ylab}\hldef{=}\hlsng{"f(x)"}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{'l'}\hldef{,}\hlkwc{main}\hldef{=}\hlsng{"Normal PDF, scale 5"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-14-2} 
+\end{knitrout}
+
+Normal distribution Cumulative Distribution Function with different scale parameters
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{par}\hldef{(}\hlkwc{mfrow}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{3}\hldef{,}\hlnum{1}\hldef{))}
+\hlkwd{plot}\hldef{(x,}\hlkwd{pnorm}\hldef{(x,}\hlnum{0}\hldef{,}\hlnum{1}\hldef{),}\hlkwc{xlab}\hldef{=}\hlsng{"x"}\hldef{,}\hlkwc{ylab}\hldef{=}\hlsng{"f(x)"}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{'l'}\hldef{,} \hlkwc{main}\hldef{=}\hlsng{"Normal CDF scale 1"}\hldef{)}
+\hlkwd{plot}\hldef{(x,}\hlkwd{pnorm}\hldef{(x,}\hlnum{0}\hldef{,}\hlnum{2}\hldef{),}\hlkwc{xlab}\hldef{=}\hlsng{"x"}\hldef{,} \hlkwc{ylab}\hldef{=}\hlsng{"f(x)"}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{'l'}\hldef{,} \hlkwc{main}\hldef{=}\hlsng{"Normal CDF scale 2"}\hldef{)}
+\hlkwd{plot}\hldef{(x,}\hlkwd{pnorm}\hldef{(x,}\hlnum{0}\hldef{,}\hlnum{5}\hldef{),}\hlkwc{xlab}\hldef{=}\hlsng{"x"}\hldef{,} \hlkwc{ylab}\hldef{=}\hlsng{"f(x)"}\hldef{,} \hlkwc{type}\hldef{=}\hlsng{'l'}\hldef{,} \hlkwc{main}\hldef{=}\hlsng{"Normal CDF scale 5"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-15-1} 
+\end{knitrout}
+
+In a photographic process the developing times of prints may be looked
+upon as a random variable having the normal distribution with a mean of 16.28
+seconds and a standard deviation 0.12 second. Find the probability that it will take
+(i) Atleast 16.20 seconds to develop one of the prints;
+(ii) atmost 16.35 seconds to develop one of the prints  
+\\
+Solution: i) $P(X\geq 16.20)=P(Z\geq -0.6667) $
+\\
+ii)$P(X\leq 16.35)=P(X\leq 0.5833)=0.5+0.2190=0.7190 $
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{(}\hlnum{1}\hlopt{-}\hlkwd{pnorm} \hldef{(}\hlopt{-}\hlnum{0.6667}\hldef{))}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.7475181
+\end{verbatim}
+\begin{alltt}
+\hlkwd{plot.new}\hldef{()}
+\hlkwd{curve} \hldef{(dnorm,} \hlkwc{xlim} \hldef{=} \hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,} \hlnum{3}\hldef{),} \hlkwc{ylim} \hldef{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlnum{0.5}\hldef{),} \hlkwc{xlab} \hldef{=} \hlsng{"z"}\hldef{,}
+       \hlkwc{ylab}\hldef{=}\hlsng{"f(z)"}\hldef{)}
+\hldef{z} \hlkwb{=} \hlopt{-}\hlnum{0.6667}
+\hldef{x} \hlkwb{=} \hlkwd{c}\hldef{(z,} \hlkwd{seq}\hldef{(z,} \hlnum{3}\hldef{,} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{),} \hlnum{3}\hldef{)}
+\hldef{y} \hlkwb{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlkwd{dnorm}\hldef{(}\hlkwd{seq}\hldef{(z,} \hlnum{3}\hldef{,} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{)),} \hlnum{0}\hldef{)}
+\hlkwd{polygon}\hldef{(x, y,} \hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-16-1} 
+\end{knitrout}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{pnorm}\hldef{(}\hlnum{0.5833}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.7201543
+\end{verbatim}
+\begin{alltt}
+\hlkwd{plot.new}\hldef{()}
+\hlkwd{curve} \hldef{(dnorm,} \hlkwc{xlim} \hldef{=} \hlkwd{c}\hldef{(}\hlopt{-}\hlnum{3}\hldef{,} \hlnum{3}\hldef{),} \hlkwc{ylim} \hldef{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlnum{0.5}\hldef{),} \hlkwc{xlab} \hldef{=} \hlsng{"z"}\hldef{,}
+       \hlkwc{ylab}\hldef{=}\hlsng{"f(z)"}\hldef{)}
+\hldef{z} \hlkwb{=} \hlnum{0.5833}
+\hldef{x} \hlkwb{=} \hlkwd{c}\hldef{(z,} \hlkwd{seq}\hldef{(z,} \hlnum{3}\hldef{,} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{),} \hlnum{3}\hldef{)}
+\hldef{y} \hlkwb{=} \hlkwd{c}\hldef{(}\hlnum{0}\hldef{,} \hlkwd{dnorm}\hldef{(}\hlkwd{seq}\hldef{(z,} \hlnum{3}\hldef{,} \hlkwc{by}\hldef{=}\hlnum{.001}\hldef{)),} \hlnum{0}\hldef{)}
+\hlkwd{polygon}\hldef{(x, y,} \hlkwc{col}\hldef{=}\hlsng{"red"}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-17-1} 
+\end{knitrout}
+
+
+
+
+\subsection{GENERAL NORMAL PROBABILITY DISTRIBUTIONS}
+Problem\\
+Suppose X is normal with mean 527 and standard deviation 105.
+Compute $P(X \leq 310)$.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{pnorm}\hldef{(}\hlnum{310}\hldef{,}\hlnum{527}\hldef{,}\hlnum{105}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.01938279
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem\\
+If $X~N(\mu=100 pts,\sigma=15pts) $\\
+i)Find $P(80 pts<X <95 pts)$
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{pnorm}\hldef{(}\hlnum{95}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{100}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{15}\hldef{)} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlnum{80}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{100}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{15}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.2782301
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+ii)Find $P(X >125 pts)$.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlnum{1} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlnum{125}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{100}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{15}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.04779035
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+iii) Find $P_{75}$ , the 75th percentile of the above distribution. This is the same as the 0.75 quantile.\\
+Problem\\
+The weekly wages of 1000 workmen are normally distributed around a mean of Rs. 70 with S.D of Rs 5.Estimate the number of workers whose weekly wages will be
+(i) Between Rs 69 and Rs 72
+(ii) Less than Rs 69
+(iii) More than Rs 72\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{(} \hlkwd{pnorm}\hldef{(}\hlnum{72}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{70}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{5}\hldef{)} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlnum{69}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{70}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{5}\hldef{))}\hlopt{*}\hlnum{1000}
+\end{alltt}
+\begin{verbatim}
+## [1] 234.6815
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{(}\hlkwd{pnorm}\hldef{(}\hlnum{69}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{70}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{5}\hldef{))}\hlopt{*}\hlnum{1000}
+\end{alltt}
+\begin{verbatim}
+## [1] 420.7403
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{(}\hlnum{1} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlnum{72}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{70}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{5}\hldef{))}\hlopt{*}\hlnum{1000}
+\end{alltt}
+\begin{verbatim}
+## [1] 344.5783
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Problem\\
+In a test on 2000 Electric bulbs ,it was found that the life of particular make, was normally distributed with an average life of 2040 hours and S.D of 60 hours. Estimate the number of bulbs likely to burn for
+(i) More than 2150 hours
+(ii) Less than 1950 hours
+(iii) More than 1920 hours but less than 2160 hours
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{(}\hlnum{1} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlnum{2150}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{2040}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{60}\hldef{))}\hlopt{*}\hlnum{2000}
+\end{alltt}
+\begin{verbatim}
+## [1] 66.75302
+\end{verbatim}
+\begin{alltt}
+\hlcom{# The number of bulbs expected to burn for more than 2150 hours is}
+\hlcom{# 67 (approximately)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{(}\hlkwd{pnorm}\hldef{(}\hlnum{1950}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{2040}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{60}\hldef{))}\hlopt{*}\hlnum{2000}
+\end{alltt}
+\begin{verbatim}
+## [1] 133.6144
+\end{verbatim}
+\begin{alltt}
+\hlcom{# The number of bulbs expected to burn for less than 1950 hours }
+\hlcom{# is 134 (approximately)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{(} \hlkwd{pnorm}\hldef{(}\hlnum{2160}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{2040}\hldef{,} \hlkwc{sd}\hldef{=}\hlnum{60}\hldef{)} \hlopt{-} \hlkwd{pnorm}\hldef{(}\hlnum{1920}\hldef{,} \hlkwc{mean}\hldef{=}\hlnum{2040}\hldef{,}
+\hlkwc{sd}\hldef{=}\hlnum{60}\hldef{))}\hlopt{*}\hlnum{2000}
+\end{alltt}
+\begin{verbatim}
+## [1] 1908.999
+\end{verbatim}
+\begin{alltt}
+\hlcom{# The number of bulbs expected to burn more than 1920 hours but}
+\hlcom{# less than 2160 is 1909 (approximately)}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+
+\subsection{BINOMIAL DISTRIBUTION TENDS TO NORMAL DISTRIBUTION AS ‘n’ TENDS TO INFINITY:}
+Binomial distribution tends to Normal distribution
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{n}\hlkwb{=}\hlnum{5}\hldef{;p}\hlkwb{=}\hlnum{.25}
+\hldef{x}\hlkwb{=}\hlkwd{rbinom}\hldef{(}\hlnum{100}\hldef{,n,p)}
+\hlkwd{hist}\hldef{(x,}\hlkwc{probability}\hldef{=}\hlnum{TRUE}\hldef{,)}
+ \hlcom{## use points, not curve as dbinom wants integers only for x}
+\hldef{xvals}\hlkwb{=}\hlnum{0}\hlopt{:}\hldef{n;}\hlkwd{points}\hldef{(xvals,}\hlkwd{dbinom}\hldef{(xvals,n,p),}\hlkwc{type}\hldef{=}\hlsng{"h"}\hldef{,}\hlkwc{lwd}\hldef{=}\hlnum{3}\hldef{)}
+\hlkwd{points}\hldef{(xvals,}\hlkwd{dbinom}\hldef{(xvals,n,p),}\hlkwc{type}\hldef{=}\hlsng{"p"}\hldef{,}\hlkwc{lwd}\hldef{=}\hlnum{3}\hldef{)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-27-1} 
+\end{knitrout}
+
+\section*{Experiment}
+
+1. Find i) $P(0.8\leq Z\leq 1.5)$ ii)$P(Z\leq 2)$ iii) $P(Z \geq 1)$
+Find These probability values and Plot the graph.\\
+(Standard Normal distribution)\\
+2.If mean=70 and Standard deviation is 16
+i)$P(38\leq X \leq 46)$  ii) $P(82\leq X \leq 94)$  iii) $P(62\leq X \leq 86)$\\
+(General Normal Distribution.)\\
+3. 1000 students had Written an examination the mean of test is 35 and
+standard deviation is 5.Assumning the to be normal find
+i) How many students Marks Lie between 25 and 40
+ii) How many students get more than 40
+iii) How many students get below 20
+iv) How many students get 50\\
+(Standard Normal distribution or General Normal Distribution)\\
+
+\end{document}

@@ -1,0 +1,202 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+ \date{}
+\title{\textbf{Statistics for Engineers (MAT2001)- Lab  Experiment-VII:  Two Sample Z-test}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\maketitle
+\section{Two sample Sample Z-test}
+\begin{verbatim}
+prop.test(c(x1,x2), c(n1,n2), correct=, alternate = ).
+\end{verbatim}
+
+\begin{itemize}
+  \item x1 and x2 are the number of successes in sample 1 and 2 respectively.
+  \item n1 and n2 are the sample sizes or number of trials.
+  \item correct = TRUE (use a continuity correction factor) or FALSE (do not).
+  \item alternate = "two.sided" (default), "less", or "greater".
+\end{itemize}
+\emph{The Trial Urban District Assessment (TUDA) is a study sponsored by the government of student achievement in large urban school district. In 2009, 1311 of a random sample of 1900 eighth-graders from Houston performed at or above the basic level in mathematics . In 2011, 1440 of a random sample of 2000 eighth-graders from Houston performed at or above the basic level . (The study reports the proportions).\\
+(A )Is there an increase in the proportion of eighth-graders who performed at or above the basic level in mathematics from 2009 to 2011 at the 5\% significance level?\\
+(B) Compute the 95\% confidence interval for the difference in proportion of eighth-
+graders who performed at or above the basic level in mathematics from 2009 to 2011.}\\
+(A ) Let p1 and p2 be the proprtions of eighth-graders that performed at or above he basic level in mathematics in 2011 and 2009,respectively .We wish the test
+$H_0:p_1=p_2$ against $H_1=p_1> p_2$
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{prop.test}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{1440}\hldef{,} \hlnum{1311}\hldef{),} \hlkwd{c}\hldef{(}\hlnum{2000}\hldef{,} \hlnum{1900}\hldef{),} \hlkwc{alternative} \hldef{=} \hlsng{"greater"}\hldef{,}
+          \hlkwc{correct} \hldef{=} \hlnum{FALSE}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	2-sample test for equality of proportions without continuity correction
+## 
+## data:  c(1440, 1311) out of c(2000, 1900)
+## X-squared = 4.2197, df = 1, p-value = 0.01998
+## alternative hypothesis: greater
+## 95 percent confidence interval:
+##  0.005972807 1.000000000
+## sample estimates:
+## prop 1 prop 2 
+##   0.72   0.69
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+The p-value$=0.02< 0.05$ so we reject H0. Thus, there is evidence that there is an increase from 2009 to 2011 in the proportion of eighth-graders who performed at or
+above the basic level at the 5\% significance level.\\
+(B) $H_0:p_1=p_2$  $H_1=p_1\neq p_2$
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{prop.test}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{1440}\hldef{,} \hlnum{1311}\hldef{),} \hlkwd{c}\hldef{(}\hlnum{2000}\hldef{,} \hlnum{1900}\hldef{),}
+          \hlkwc{correct} \hldef{=} \hlnum{FALSE}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	2-sample test for equality of proportions without continuity correction
+## 
+## data:  c(1440, 1311) out of c(2000, 1900)
+## X-squared = 4.2197, df = 1, p-value = 0.03996
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  0.001369833 0.058630167
+## sample estimates:
+## prop 1 prop 2 
+##   0.72   0.69
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Thus, we are 95\% confident that the percent of eighth-graders who performed at or above the basic level in mathematics in 2011 is between 0:14\% and 5:86\% higher than in 2009.
+\\ \\
+\emph{The use of helmet among recreational alpine skiers and snowboarders are
+generally low. A study from Norway wanted to examine if helmet use reduces the
+risk of head injury. In the study, they compared the helmet use among skiers and snowboarders that was injured with a control group. The control group consisted of
+skiers and snowboarders that was uninjured. 96 of 578 people with head injuries used a helmet and 656 of 2992 people in the uninjured group used a helmet. Is helmet use lower among skiers and snowboarders who had head injuries?}
+\\
+$H_0:p_1=p_2$  $H_1=p_1< p_2$
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{prop.test}\hldef{(}\hlkwd{c}\hldef{(}\hlnum{96}\hldef{,} \hlnum{656}\hldef{),} \hlkwd{c}\hldef{(}\hlnum{578}\hldef{,} \hlnum{2992}\hldef{),} \hlkwc{alternative} \hldef{=} \hlsng{"less"}\hldef{,}
+          \hlkwc{correct} \hldef{=} \hlnum{FALSE}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	2-sample test for equality of proportions without continuity correction
+## 
+## data:  c(96, 656) out of c(578, 2992)
+## X-squared = 8.2336, df = 1, p-value = 0.002056
+## alternative hypothesis: less
+## 95 percent confidence interval:
+##  -1.00000000 -0.02482216
+## sample estimates:
+##    prop 1    prop 2 
+## 0.1660900 0.2192513
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+The p-value$= 0.0021 < 0.01$ so we have strong evidence that helmet use is lower
+among skiers and snowboarders who had head injuries compared to uninjured skiers
+and snowboarders.
+\\
+\\
+\emph{In the built-in data set named quine, children from an Australian town is classified by ethnic background, gender, age, learning status and the number of days absent from school.}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# library (MASS) # load the MASS package}
+\hlcom{# quine}
+\hlcom{# table(quine$Eth, quine$Sex)}
+\hlcom{# table}
+\end{alltt}
+\end{kframe}
+\end{knitrout}
+\emph{
+Assuming that the data in quine follows the normal distribution, find the 95\% confidence interval estimate of the difference between the female proportion of Aboriginal students and the female proportion of Non-Aboriginal students, each within their own ethnic group.
+}
+\\
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{lib} \hlkwb{<-} \hlkwd{library} \hldef{(MASS)} \hlcom{# load the MASS package}
+\hldef{df} \hlkwb{<-} \hldef{quine}
+\hlkwd{table}\hldef{(df}\hlopt{$}\hldef{Eth, df}\hlopt{$}\hldef{Sex)}
+\end{alltt}
+\begin{verbatim}
+##    
+##      F  M
+##   A 38 31
+##   N 42 35
+\end{verbatim}
+\begin{alltt}
+\hlkwd{prop.test}\hldef{(}\hlkwd{table}\hldef{(df}\hlopt{$}\hldef{Eth, df}\hlopt{$}\hldef{Sex),} \hlkwc{correct} \hldef{=} \hlnum{FALSE}\hldef{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	2-sample test for equality of proportions without continuity correction
+## 
+## data:  table(df$Eth, df$Sex)
+## X-squared = 0.0040803, df = 1, p-value = 0.9491
+## alternative hypothesis: two.sided
+## 95 percent confidence interval:
+##  -0.1564218  0.1669620
+## sample estimates:
+##    prop 1    prop 2 
+## 0.5507246 0.5454545
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+The 95\% confidence interval estimate of the difference between the female proportion of Aboriginal students and the female proportion of Non-Aboriginal students is between -15.6\% and 16.7\%.
+
+\end{document}

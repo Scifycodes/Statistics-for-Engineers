@@ -1,0 +1,165 @@
+\documentclass{article}
+ \date{}
+\title{Statistics for Engineers (MAT2001)- Lab  Experiment-III:  Correlation and Regression}
+
+\begin{document}
+\maketitle
+ % \tableofcontents
+
+\section{Regression}
+Problem: \newline
+The following table shows the scores (X) of 10 students on Zoology test and scores (Y) on Botony test .The maximum score in each test was 50.Obtain least square equation of line of regression of X on Y. If it is known that the score of a student in Botony is 28,Estimate his/her score in Zoology.
+
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+    \hline
+        X & 34 & 37 & 36 & 32 & 32 & 36 & 35 & 34 & 29 \\ \hline
+        Y & 37 & 37 & 34 & 34 & 33 & 40 & 39 & 37 & 36 \\ \hline
+
+       
+       \end{tabular}
+\end{table}
+
+
+<<>>=
+x=c(34,37,36,32,32,36,35,34,29,35)
+y=c(37,37,34,34,33,40,39,37,36,35)
+fit=lm(x~y)
+fit
+
+@
+The equation of the line of regression of X and Y is X=18.9167+0.4167Y.
+The required score of the student in Zoology is 30.58333
+<<>>=
+summary(fit)
+@
+
+\subsection{Diagnostic Visualizations}
+Residuals vs. Fitted:
+The residuals vs. fitted visualization is a scatter plot showing the residuals on the Y-axis and the fitted values on the X-axis. You can compare it to doing a linear fit and then flipping the fitted line so that it becomes horizontal. Values that have the residual 0 are those that would end up directly on the estimated regression line. The residuals vs fit plot is commonly used to detect non-linearity, unequal error variances and outliers.
+\includegraphics[width=0.9\textwidth]{./figure/rf}
+
+Normal Quantile-Quantile
+
+The normal quantile-quantile visualization calculates the normal quantiles of all values in a column. The values (Y-axis) are then plotted against the normal quantiles (X-axis).
+
+\includegraphics[width=0.9\textwidth]{./figure/nqq1}
+
+
+\includegraphics[width=0.9\textwidth]{./figure/nqq2}
+
+Scale – Location:
+The scale – location plot is similar to the residuals vs fit plot, but instead of linear residuals it uses the square root of the residuals. It is used to reveal trends in the magnitudes of residuals. For a good model, the values should be more or less randomly distributed.
+
+Cook's Distance:
+Cook's distance is a statistic which tries to identify those values which have more influence than others on the estimated coefficients. 
+
+
+
+
+Problem: \newline
+The following data pertain to the resistance in (ohms) and the failure times (minutes) of 24 overloaded resistors. 
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Resistance(x)   & 43 & 29 & 44 & 33 & 33 & 47 & 34 & 31 & 48 & 34 & 46 & 37 & 36 & 39 \\ \hline
+                & 36 & 47 & 28 & 40 & 42 & 33 & 46 & 28 & 48 & 45 &    &    &    &    \\ \hline
+Failure time(y) & 32 & 20 & 45 & 35 & 22 & 46 & 28 & 26 & 37 & 33 & 47 & 30 & 36 & 33 \\ \hline
+                & 21 & 44 & 26 & 45 & 39 & 25 & 36 & 25 & 45 & 36 &    &    &    &    \\ \hline
+\end{tabular}
+\end{table}
+<<>>=
+res <- c(43,29,44,33,33,47,34 , 
+         31,48,34,46,37,36,39,36 ,
+         47,28,40,42,33,46,28,48,45 )
+fail <- c(32,20,45,35,22,46,28,
+          26,37,33,47,30,36,33,21,44,
+          26,45,39,25,36,25,45,36	)
+fit=lm(fail~res)
+fit
+@
+<<>>=
+summary(fit)
+@
+Diagnostic Visualizations
+<<>>=
+par(mfrow=c(2,2));
+plot(fit)
+@
+\subsection{Multiple Regression}
+Problem: \newline
+The sale of a Product in lakhs of rupees(Y) is expected to be influenced by two variables namely the advertising expenditure X1 (in’OOO Rs) and the number of sales persons(X2) in a region. Sample data on 8 Regions of a state has given the following results
+
+\begin{table}[]
+\begin{tabular}{cccc}
+Area & y   & Xl & X2 \\
+1    & 110 & 30 & 11 \\
+2    & 80  & 40 & 10 \\
+3    & 70  & 20 & 7  \\
+4    & 120 & 50 & 15 \\
+5    & 150 & 60 & 19 \\
+6    & 90  & 40 & 12 \\
+7    & 70  & 20 & 8  \\
+8    & 120 & 60 & 14
+\end{tabular}
+\end{table}
+
+<<>>=
+Y=c(110,80,70,120,150,90,70,120)
+X1=c(30,40,20,50,60,40,20,60)
+X2=c(11,10,7,15,19,12,8,14)
+input_data=data.frame(Y,X1,X2)
+input_data
+
+@
+<<>>=
+RegModel <- lm(Y~X1+X2, data=input_data)
+RegModel
+@
+	  
+
+<<>>=
+summary(RegModel)
+@
+Interpretation :
+The regression model is
+Y =16.834-0.2442*X1+7.8488*X2
+<<>>=
+par(mfrow=c(2,2));
+plot(RegModel)
+@
+
+
+
+
+\section*{Experiment}
+1. We want to predict the sales of a store based on advertising budget (in thousands of dollars). We have data for 15 different observations. What will be sales for 29000.
+\begin{table}[h]
+\begin{tabular}{clllllllllllllll}
+\textbf{Observation}              & 1  & 2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10 & 11 & 12 & 13 & 14 & 15 \\
+\textbf{ Budget (\$k)} & 5  & 8  & 10 & 6  & 7  & 4  & 9  & 12 & 11 & 3  & 13 & 15 & 14 & 6  & 7  \\
+\textbf{Sales (\$k)}              & 45 & 52 & 60 & 48 & 50 & 40 & 58 & 72 & 68 & 35 & 76 & 85 & 80 & 47 & 53
+\end{tabular}
+\end{table}
+\\
+2.We want to predict the expenditure of individuals based on their stock holdings (in thousands of dollars) and savings (in thousands of dollars). Give the plots.
+\begin{table}[h]
+\begin{tabular}{|c|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+\textbf{Stock (\$k)}       & 15 & 20 & 18 & 10 & 22 & 12 & 16 & 24 & 30 & 13 & 14 & 21 & 19 & 25 & 28 \\ \hline
+\textbf{Savings (\$k)}     & 10 & 12 & 14 & 8  & 18 & 6  & 13 & 20 & 25 & 7  & 10 & 15 & 11 & 17 & 22 \\ \hline
+\textbf{Expenditure (\$k)} & 25 & 30 & 28 & 18 & 38 & 20 & 27 & 42 & 50 & 21 & 23 & 35 & 32 & 40 & 45 \\ \hline
+\end{tabular}
+\end{table}
+\\
+
+
+
+
+
+3. Find the regression of tree's age based on circumference for the Orange  dataset. 
+
+
+\end{document}

@@ -1,0 +1,348 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+ \date{}
+\title{Statistics for Engineers (MAT2001)- Lab  Experiment-III:  Correlation and Regression}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\maketitle
+ % \tableofcontents
+
+\section{Regression}
+Problem: \newline
+The following table shows the scores (X) of 10 students on Zoology test and scores (Y) on Botony test .The maximum score in each test was 50.Obtain least square equation of line of regression of X on Y. If it is known that the score of a student in Botony is 28,Estimate his/her score in Zoology.
+
+
+\begin{table}[!ht]
+    \centering
+    \begin{tabular}{|l|l|l|l|l|l|l|l|l|l|}
+    \hline
+        X & 34 & 37 & 36 & 32 & 32 & 36 & 35 & 34 & 29 \\ \hline
+        Y & 37 & 37 & 34 & 34 & 33 & 40 & 39 & 37 & 36 \\ \hline
+
+       
+       \end{tabular}
+\end{table}
+
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{x}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{34}\hldef{,}\hlnum{37}\hldef{,}\hlnum{36}\hldef{,}\hlnum{32}\hldef{,}\hlnum{32}\hldef{,}\hlnum{36}\hldef{,}\hlnum{35}\hldef{,}\hlnum{34}\hldef{,}\hlnum{29}\hldef{,}\hlnum{35}\hldef{)}
+\hldef{y}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{37}\hldef{,}\hlnum{37}\hldef{,}\hlnum{34}\hldef{,}\hlnum{34}\hldef{,}\hlnum{33}\hldef{,}\hlnum{40}\hldef{,}\hlnum{39}\hldef{,}\hlnum{37}\hldef{,}\hlnum{36}\hldef{,}\hlnum{35}\hldef{)}
+\hldef{fit}\hlkwb{=}\hlkwd{lm}\hldef{(x}\hlopt{~}\hldef{y)}
+\hldef{fit}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = x ~ y)
+## 
+## Coefficients:
+## (Intercept)            y  
+##     18.9167       0.4167
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+The equation of the line of regression of X and Y is X=18.9167+0.4167Y.
+The required score of the student in Zoology is 30.58333
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{summary}\hldef{(fit)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = x ~ y)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -4.9167 -0.5833 -0.2500  1.2292  2.9167 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)
+## (Intercept)  18.9167    12.6059   1.501    0.172
+## y             0.4167     0.3476   1.199    0.265
+## 
+## Residual standard error: 2.347 on 8 degrees of freedom
+## Multiple R-squared:  0.1522,	Adjusted R-squared:  0.04627 
+## F-statistic: 1.437 on 1 and 8 DF,  p-value: 0.265
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\subsection{Diagnostic Visualizations}
+Residuals vs. Fitted:
+The residuals vs. fitted visualization is a scatter plot showing the residuals on the Y-axis and the fitted values on the X-axis. You can compare it to doing a linear fit and then flipping the fitted line so that it becomes horizontal. Values that have the residual 0 are those that would end up directly on the estimated regression line. The residuals vs fit plot is commonly used to detect non-linearity, unequal error variances and outliers.
+\includegraphics[width=0.9\textwidth]{./figure/rf}
+
+Normal Quantile-Quantile
+
+The normal quantile-quantile visualization calculates the normal quantiles of all values in a column. The values (Y-axis) are then plotted against the normal quantiles (X-axis).
+
+\includegraphics[width=0.9\textwidth]{./figure/nqq1}
+
+
+\includegraphics[width=0.9\textwidth]{./figure/nqq2}
+
+Scale – Location:
+The scale – location plot is similar to the residuals vs fit plot, but instead of linear residuals it uses the square root of the residuals. It is used to reveal trends in the magnitudes of residuals. For a good model, the values should be more or less randomly distributed.
+
+Cook's Distance:
+Cook's distance is a statistic which tries to identify those values which have more influence than others on the estimated coefficients. 
+
+
+
+
+Problem: \newline
+The following data pertain to the resistance in (ohms) and the failure times (minutes) of 24 overloaded resistors. 
+\begin{table}[h]
+\begin{tabular}{|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+Resistance(x)   & 43 & 29 & 44 & 33 & 33 & 47 & 34 & 31 & 48 & 34 & 46 & 37 & 36 & 39 \\ \hline
+                & 36 & 47 & 28 & 40 & 42 & 33 & 46 & 28 & 48 & 45 &    &    &    &    \\ \hline
+Failure time(y) & 32 & 20 & 45 & 35 & 22 & 46 & 28 & 26 & 37 & 33 & 47 & 30 & 36 & 33 \\ \hline
+                & 21 & 44 & 26 & 45 & 39 & 25 & 36 & 25 & 45 & 36 &    &    &    &    \\ \hline
+\end{tabular}
+\end{table}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{res} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{43}\hldef{,}\hlnum{29}\hldef{,}\hlnum{44}\hldef{,}\hlnum{33}\hldef{,}\hlnum{33}\hldef{,}\hlnum{47}\hldef{,}\hlnum{34} \hldef{,}
+         \hlnum{31}\hldef{,}\hlnum{48}\hldef{,}\hlnum{34}\hldef{,}\hlnum{46}\hldef{,}\hlnum{37}\hldef{,}\hlnum{36}\hldef{,}\hlnum{39}\hldef{,}\hlnum{36} \hldef{,}
+         \hlnum{47}\hldef{,}\hlnum{28}\hldef{,}\hlnum{40}\hldef{,}\hlnum{42}\hldef{,}\hlnum{33}\hldef{,}\hlnum{46}\hldef{,}\hlnum{28}\hldef{,}\hlnum{48}\hldef{,}\hlnum{45} \hldef{)}
+\hldef{fail} \hlkwb{<-} \hlkwd{c}\hldef{(}\hlnum{32}\hldef{,}\hlnum{20}\hldef{,}\hlnum{45}\hldef{,}\hlnum{35}\hldef{,}\hlnum{22}\hldef{,}\hlnum{46}\hldef{,}\hlnum{28}\hldef{,}
+          \hlnum{26}\hldef{,}\hlnum{37}\hldef{,}\hlnum{33}\hldef{,}\hlnum{47}\hldef{,}\hlnum{30}\hldef{,}\hlnum{36}\hldef{,}\hlnum{33}\hldef{,}\hlnum{21}\hldef{,}\hlnum{44}\hldef{,}
+          \hlnum{26}\hldef{,}\hlnum{45}\hldef{,}\hlnum{39}\hldef{,}\hlnum{25}\hldef{,}\hlnum{36}\hldef{,}\hlnum{25}\hldef{,}\hlnum{45}\hldef{,}\hlnum{36}       \hldef{)}
+\hldef{fit}\hlkwb{=}\hlkwd{lm}\hldef{(fail}\hlopt{~}\hldef{res)}
+\hldef{fit}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = fail ~ res)
+## 
+## Coefficients:
+## (Intercept)          res  
+##      -5.518        1.019
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{summary}\hldef{(fit)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = fail ~ res)
+## 
+## Residuals:
+##      Min       1Q   Median       3Q      Max 
+## -10.1590  -4.1026   0.7752   3.6954   9.7658 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)  -5.5175     6.1961  -0.890    0.383    
+## res           1.0188     0.1581   6.444 1.75e-06 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 5.142 on 22 degrees of freedom
+## Multiple R-squared:  0.6537,	Adjusted R-squared:  0.6379 
+## F-statistic: 41.53 on 1 and 22 DF,  p-value: 1.751e-06
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Diagnostic Visualizations
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{par}\hldef{(}\hlkwc{mfrow}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{2}\hldef{,}\hlnum{2}\hldef{));}
+\hlkwd{plot}\hldef{(fit)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-5-1} 
+\end{knitrout}
+\subsection{Multiple Regression}
+Problem: \newline
+The sale of a Product in lakhs of rupees(Y) is expected to be influenced by two variables namely the advertising expenditure X1 (in’OOO Rs) and the number of sales persons(X2) in a region. Sample data on 8 Regions of a state has given the following results
+
+\begin{table}[]
+\begin{tabular}{cccc}
+Area & y   & Xl & X2 \\
+1    & 110 & 30 & 11 \\
+2    & 80  & 40 & 10 \\
+3    & 70  & 20 & 7  \\
+4    & 120 & 50 & 15 \\
+5    & 150 & 60 & 19 \\
+6    & 90  & 40 & 12 \\
+7    & 70  & 20 & 8  \\
+8    & 120 & 60 & 14
+\end{tabular}
+\end{table}
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{Y}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{110}\hldef{,}\hlnum{80}\hldef{,}\hlnum{70}\hldef{,}\hlnum{120}\hldef{,}\hlnum{150}\hldef{,}\hlnum{90}\hldef{,}\hlnum{70}\hldef{,}\hlnum{120}\hldef{)}
+\hldef{X1}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{30}\hldef{,}\hlnum{40}\hldef{,}\hlnum{20}\hldef{,}\hlnum{50}\hldef{,}\hlnum{60}\hldef{,}\hlnum{40}\hldef{,}\hlnum{20}\hldef{,}\hlnum{60}\hldef{)}
+\hldef{X2}\hlkwb{=}\hlkwd{c}\hldef{(}\hlnum{11}\hldef{,}\hlnum{10}\hldef{,}\hlnum{7}\hldef{,}\hlnum{15}\hldef{,}\hlnum{19}\hldef{,}\hlnum{12}\hldef{,}\hlnum{8}\hldef{,}\hlnum{14}\hldef{)}
+\hldef{input_data}\hlkwb{=}\hlkwd{data.frame}\hldef{(Y,X1,X2)}
+\hldef{input_data}
+\end{alltt}
+\begin{verbatim}
+##     Y X1 X2
+## 1 110 30 11
+## 2  80 40 10
+## 3  70 20  7
+## 4 120 50 15
+## 5 150 60 19
+## 6  90 40 12
+## 7  70 20  8
+## 8 120 60 14
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hldef{RegModel} \hlkwb{<-} \hlkwd{lm}\hldef{(Y}\hlopt{~}\hldef{X1}\hlopt{+}\hldef{X2,} \hlkwc{data}\hldef{=input_data)}
+\hldef{RegModel}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X1 + X2, data = input_data)
+## 
+## Coefficients:
+## (Intercept)           X1           X2  
+##     16.8314      -0.2442       7.8488
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+	  
+
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{summary}\hldef{(RegModel)}
+\end{alltt}
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = Y ~ X1 + X2, data = input_data)
+## 
+## Residuals:
+##       1       2       3       4       5       6       7       8 
+##  14.157  -5.552   3.110  -2.355  -1.308 -11.250  -4.738   7.936 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)  16.8314    11.8290   1.423   0.2140  
+## X1           -0.2442     0.5375  -0.454   0.6687  
+## X2            7.8488     2.1945   3.577   0.0159 *
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 9.593 on 5 degrees of freedom
+## Multiple R-squared:  0.9191,	Adjusted R-squared:  0.8867 
+## F-statistic:  28.4 on 2 and 5 DF,  p-value: 0.001862
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+Interpretation :
+The regression model is
+Y =16.834-0.2442*X1+7.8488*X2
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{par}\hldef{(}\hlkwc{mfrow}\hldef{=}\hlkwd{c}\hldef{(}\hlnum{2}\hldef{,}\hlnum{2}\hldef{));}
+\hlkwd{plot}\hldef{(RegModel)}
+\end{alltt}
+\end{kframe}
+\includegraphics[width=\maxwidth]{figure/unnamed-chunk-9-1} 
+\end{knitrout}
+
+
+
+
+\section*{Experiment}
+1. We want to predict the sales of a store based on advertising budget (in thousands of dollars). We have data for 15 different observations. What will be sales for 29000.
+\begin{table}[h]
+\begin{tabular}{clllllllllllllll}
+\textbf{Observation}              & 1  & 2  & 3  & 4  & 5  & 6  & 7  & 8  & 9  & 10 & 11 & 12 & 13 & 14 & 15 \\
+\textbf{ Budget (\$k)} & 5  & 8  & 10 & 6  & 7  & 4  & 9  & 12 & 11 & 3  & 13 & 15 & 14 & 6  & 7  \\
+\textbf{Sales (\$k)}              & 45 & 52 & 60 & 48 & 50 & 40 & 58 & 72 & 68 & 35 & 76 & 85 & 80 & 47 & 53
+\end{tabular}
+\end{table}
+\\
+2.We want to predict the expenditure of individuals based on their stock holdings (in thousands of dollars) and savings (in thousands of dollars). Give the plots.
+\begin{table}[h]
+\begin{tabular}{|c|l|l|l|l|l|l|l|l|l|l|l|l|l|l|l|}
+\hline
+\textbf{Stock (\$k)}       & 15 & 20 & 18 & 10 & 22 & 12 & 16 & 24 & 30 & 13 & 14 & 21 & 19 & 25 & 28 \\ \hline
+\textbf{Savings (\$k)}     & 10 & 12 & 14 & 8  & 18 & 6  & 13 & 20 & 25 & 7  & 10 & 15 & 11 & 17 & 22 \\ \hline
+\textbf{Expenditure (\$k)} & 25 & 30 & 28 & 18 & 38 & 20 & 27 & 42 & 50 & 21 & 23 & 35 & 32 & 40 & 45 \\ \hline
+\end{tabular}
+\end{table}
+\\
+
+
+
+
+
+3. Find the regression of tree's age based on circumference for the Orange  dataset. 
+
+
+\end{document}

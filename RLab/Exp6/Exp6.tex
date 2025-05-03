@@ -1,0 +1,327 @@
+\documentclass{article}\usepackage[]{graphicx}\usepackage[]{xcolor}
+% maxwidth is the original width if it is less than linewidth
+% otherwise use linewidth (to make sure the graphics do not exceed the margin)
+\makeatletter
+\def\maxwidth{ %
+  \ifdim\Gin@nat@width>\linewidth
+    \linewidth
+  \else
+    \Gin@nat@width
+  \fi
+}
+\makeatother
+
+\definecolor{fgcolor}{rgb}{0.345, 0.345, 0.345}
+\newcommand{\hlnum}[1]{\textcolor[rgb]{0.686,0.059,0.569}{#1}}%
+\newcommand{\hlsng}[1]{\textcolor[rgb]{0.192,0.494,0.8}{#1}}%
+\newcommand{\hlcom}[1]{\textcolor[rgb]{0.678,0.584,0.686}{\textit{#1}}}%
+\newcommand{\hlopt}[1]{\textcolor[rgb]{0,0,0}{#1}}%
+\newcommand{\hldef}[1]{\textcolor[rgb]{0.345,0.345,0.345}{#1}}%
+\newcommand{\hlkwa}[1]{\textcolor[rgb]{0.161,0.373,0.58}{\textbf{#1}}}%
+\newcommand{\hlkwb}[1]{\textcolor[rgb]{0.69,0.353,0.396}{#1}}%
+\newcommand{\hlkwc}[1]{\textcolor[rgb]{0.333,0.667,0.333}{#1}}%
+\newcommand{\hlkwd}[1]{\textcolor[rgb]{0.737,0.353,0.396}{\textbf{#1}}}%
+\let\hlipl\hlkwb
+
+\usepackage{framed}
+\makeatletter
+\newenvironment{kframe}{%
+ \def\at@end@of@kframe{}%
+ \ifinner\ifhmode%
+  \def\at@end@of@kframe{\end{minipage}}%
+  \begin{minipage}{\columnwidth}%
+ \fi\fi%
+ \def\FrameCommand##1{\hskip\@totalleftmargin \hskip-\fboxsep
+ \colorbox{shadecolor}{##1}\hskip-\fboxsep
+     % There is no \\@totalrightmargin, so:
+     \hskip-\linewidth \hskip-\@totalleftmargin \hskip\columnwidth}%
+ \MakeFramed {\advance\hsize-\width
+   \@totalleftmargin\z@ \linewidth\hsize
+   \@setminipage}}%
+ {\par\unskip\endMakeFramed%
+ \at@end@of@kframe}
+\makeatother
+
+\definecolor{shadecolor}{rgb}{.97, .97, .97}
+\definecolor{messagecolor}{rgb}{0, 0, 0}
+\definecolor{warningcolor}{rgb}{1, 0, 1}
+\definecolor{errorcolor}{rgb}{1, 0, 0}
+\newenvironment{knitrout}{}{} % an empty environment to be redefined in TeX
+
+\usepackage{alltt}
+ \date{}
+\title{\textbf{Statistics for Engineers (MAT2001)- Lab  Experiment-V:  One Sample Z-test}}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\begin{document}
+\maketitle
+\section{Test for significance of single proportion}
+\emph{Suppose 60\% of citizens voted in last election. 85 out of 148 people in a telephone
+survey said that they voted in current election. At 0.5 significance level, can we
+reject the null hypothesis that the proportion of voters in the population is above
+60\% this year?}
+
+ \begin{itemize}
+  \item $H_0:p=0.6, H_1: p>0.6$
+\end{itemize}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Given data}
+\hldef{P} \hlkwb{<-} \hlnum{0.60}
+\hldef{x} \hlkwb{<-} \hlnum{85}
+\hldef{n} \hlkwb{<-} \hlnum{148}
+\hldef{alpha} \hlkwb{<-} \hlnum{0.05}
+\hldef{p} \hlkwb{<-} \hldef{x} \hlopt{/} \hldef{n}
+\hldef{z_score} \hlkwb{<-} \hldef{(p} \hlopt{-} \hldef{P)} \hlopt{/} \hlkwd{sqrt}\hldef{((P}\hlopt{*} \hldef{(}\hlnum{1} \hlopt{-} \hldef{P))} \hlopt{/} \hldef{n)}
+\hldef{z_critical} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha)}
+\hlcom{# Decision Rule: If Z-score > Z-critical,}
+\hlcom{# reject the null hypothesis}
+\hlcom{# if z_score < z_critical}
+\hlkwa{if} \hldef{(z_score} \hlopt{<} \hldef{z_critical) \{conclusion}\hlkwb{=}\hlsng{"Accept null hypothesis"}
+
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hldef{conclusion} \hlkwb{=} \hlsng{"Reject the null hypothesis"}
+\hldef{\}}
+\hldef{conclusion}
+\end{alltt}
+\begin{verbatim}
+## [1] "Accept null hypothesis"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\textbf{Alternative Solution 1}\\
+Instead of using the critical value, we apply the pnorm function to compute the
+lower tail p-value of the test statistic. As it turns out to be greater than the .05
+significance level, we do not reject the null hypothesis.
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{pnorm}\hldef{(z_score)}
+\end{alltt}
+\begin{verbatim}
+## [1] 0.2618676
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\emph{Suppose that 12\% of apples harvested in an orchard last year was rotten. 30 out of
+214 apples in a harvest sample this year turns out to be rotten. At .05 significance
+level, can we reject the null hypothesis that the proportion of rotten apples in
+harvest stays below 12\% this year?}\\
+\begin{itemize}
+  \item $H_0:p=0.12, H_1: p<0.12$
+\end{itemize}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Given data}
+\hldef{P} \hlkwb{<-} \hlnum{0.12}
+\hldef{x} \hlkwb{<-} \hlnum{30}
+\hldef{n} \hlkwb{<-} \hlnum{214}
+\hldef{alpha} \hlkwb{<-} \hlnum{0.05}
+\hldef{p} \hlkwb{<-} \hldef{x} \hlopt{/} \hldef{n}
+\hldef{z_score} \hlkwb{<-} \hldef{(p} \hlopt{-} \hldef{P)} \hlopt{/} \hlkwd{sqrt}\hldef{((P} \hlopt{*} \hldef{(}\hlnum{1} \hlopt{-} \hldef{P))} \hlopt{/} \hldef{n)}
+\hldef{z_critical} \hlkwb{<-} \hlkwd{qnorm}\hldef{( alpha)}
+
+\hlcom{# if z_score < z_critical}
+\hlkwa{if} \hldef{(z_score} \hlopt{<} \hldef{z_critical) \{conclusion}\hlkwb{=}\hlsng{"Accept null hypothesis"}
+
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hldef{conclusion} \hlkwb{=} \hlsng{"Reject the null hypothesis"}
+\hldef{\}}
+\hldef{conclusion}
+\end{alltt}
+\begin{verbatim}
+## [1] "Reject the null hypothesis"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\textbf{Alternative Solution 2}\\
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlkwd{prop.test}\hldef{(}\hlnum{30}\hldef{,} \hlnum{214}\hldef{,} \hlkwc{p} \hldef{=} \hlnum{0.12}\hldef{,}\hlkwc{alternative} \hldef{=} \hlsng{"greater"} \hldef{)}
+\end{alltt}
+\begin{verbatim}
+## 
+## 	1-sample proportions test with continuity correction
+## 
+## data:  30 out of 214, null probability 0.12
+## X-squared = 0.64573, df = 1, p-value = 0.2108
+## alternative hypothesis: true p is greater than 0.12
+## 95 percent confidence interval:
+##  0.1035873 1.0000000
+## sample estimates:
+##         p 
+## 0.1401869
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\emph{Suppose a coin toss turns up 12 heads out of 20 trials. At .05 significance level,
+can one reject the null hypothesis that the coin toss is fair?}\\
+\begin{itemize}
+  \item $H_0:p=0.5, H_1: p\neq 0.5$
+\end{itemize}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Given data}
+\hldef{P} \hlkwb{<-} \hlnum{0.5}
+\hldef{x} \hlkwb{<-} \hlnum{12}
+\hldef{n} \hlkwb{<-} \hlnum{20}
+\hldef{alpha} \hlkwb{<-} \hlnum{0.05}
+\hldef{p} \hlkwb{<-} \hldef{x} \hlopt{/} \hldef{n}
+\hldef{z_score} \hlkwb{<-} \hldef{(p} \hlopt{-} \hldef{P)} \hlopt{/} \hlkwd{sqrt}\hldef{((P} \hlopt{*} \hldef{(}\hlnum{1} \hlopt{-} \hldef{P))} \hlopt{/} \hldef{n)}
+\hldef{z_critical} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha} \hlopt{/} \hlnum{2}\hldef{)}
+\hlcom{## if z_score < z_critical}
+\hlkwa{if} \hldef{(}\hlkwd{abs}\hldef{(z_score)} \hlopt{<} \hldef{z_critical) \{conclusion}\hlkwb{=}\hlsng{"Accept null hypothesis"}
+
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hldef{conclusion} \hlkwb{=} \hlsng{"Reject the null hypothesis"}
+\hldef{\}}
+\hldef{conclusion}
+\end{alltt}
+\begin{verbatim}
+## [1] "Accept null hypothesis"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\section*{Test for significance of single mean}
+\emph{Suppose the manufacturer claims that the mean lifetime of a light bulb is more
+than 10,000 hours. In a sample of 30 light bulbs, it was found that they only last
+9,900 hours on average. Assume the population standard deviation is 120 hours.
+At .05 significance level, can we reject the claim by the manufacturer?
+}\\
+\begin{itemize}
+  \item $H_0:\mu =10000, H_1: \mu <10000$
+\end{itemize}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Given data}
+\hldef{mu} \hlkwb{<-} \hlnum{10000}
+\hldef{x_bar} \hlkwb{<-} \hlnum{9900}
+\hldef{sigma} \hlkwb{<-} \hlnum{120}
+\hldef{n} \hlkwb{<-} \hlnum{30}
+\hldef{alpha} \hlkwb{<-} \hlnum{0.05}
+
+\hlcom{# Calculate the Z-score}
+\hldef{z_score} \hlkwb{<-} \hldef{(x_bar} \hlopt{-} \hldef{mu)} \hlopt{/} \hldef{(sigma} \hlopt{/} \hlkwd{sqrt}\hldef{(n))}
+\hldef{z_score}
+\end{alltt}
+\begin{verbatim}
+## [1] -4.564355
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Calculate the critical Z value for a left-tailed test at alpha = 0.05}
+\hldef{z_critical} \hlkwb{<-} \hlkwd{qnorm}\hldef{(alpha)}
+\hldef{z_critical}
+\end{alltt}
+\begin{verbatim}
+## [1] -1.644854
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Decision Rule: If Z-score < Z-critical, reject the null hypothesis}
+\hlkwa{if} \hldef{(z_score} \hlopt{<} \hldef{z_critical) \{}
+  \hldef{decision} \hlkwb{<-} \hlsng{"Reject the null hypothesis"}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hldef{decision} \hlkwb{<-} \hlsng{"Fail to reject the null hypothesis"}
+\hldef{\}}
+
+\hldef{decision}
+\end{alltt}
+\begin{verbatim}
+## [1] "Reject the null hypothesis"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\emph{Suppose the food label on a cookie bag states that there is at most 2 grams of
+saturated fat in a single cookie. In a sample of 35 cookies, it is found that the mean
+amount of saturated fat per cookie is 2.1 grams. Assume that the population
+standard deviation is 0.25 grams. At .05 significance level, can we reject the claim
+on food label?}\\
+\begin{itemize}
+  \item $H_0:\mu = 2, H_1: \mu >2$
+\end{itemize}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Given data}
+\hldef{mu} \hlkwb{<-} \hlnum{2}        \hlcom{# population mean (claimed by the label)}
+\hldef{x_bar} \hlkwb{<-} \hlnum{2.1}   \hlcom{# sample mean}
+\hldef{sigma} \hlkwb{<-} \hlnum{0.25}  \hlcom{# population standard deviation}
+\hldef{n} \hlkwb{<-} \hlnum{35}        \hlcom{# sample size}
+\hldef{alpha} \hlkwb{<-} \hlnum{0.05}  \hlcom{# significance level}
+\hldef{z_score} \hlkwb{<-} \hldef{(x_bar} \hlopt{-} \hldef{mu)} \hlopt{/} \hldef{(sigma} \hlopt{/} \hlkwd{sqrt}\hldef{(n))}
+\hldef{z_score}
+\end{alltt}
+\begin{verbatim}
+## [1] 2.366432
+\end{verbatim}
+\begin{alltt}
+\hldef{z_critical} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha)}
+\hldef{z_critical}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.644854
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Decision Rule: If Z-score > Z-critical, reject the null hypothesis}
+\hlkwa{if} \hldef{(z_score} \hlopt{>} \hldef{z_critical) \{}
+  \hldef{decision} \hlkwb{<-} \hlsng{"Reject the null hypothesis"}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hldef{decision} \hlkwb{<-} \hlsng{"Fail to reject the null hypothesis"}
+\hldef{\}}
+\hldef{decision}
+\end{alltt}
+\begin{verbatim}
+## [1] "Reject the null hypothesis"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+\emph{Suppose the mean weight of King Penguins found in an Antarctic colony last year
+was 15.4 kg. In a sample of 35 penguins same time this year in the same colony,
+the mean penguin weight is 14.6 kg. Assume the population standard deviation is
+2.5 kg. At .05 significance level, can we reject the null hypothesis that the mean
+penguin weight does not differ from last year?}\\
+\begin{itemize}
+  \item $H_0:\mu = 15.4, H_1: \mu \neq 15.4$
+\end{itemize}
+\begin{knitrout}
+\definecolor{shadecolor}{rgb}{0.969, 0.969, 0.969}\color{fgcolor}\begin{kframe}
+\begin{alltt}
+\hlcom{# Given data}
+\hldef{mu} \hlkwb{<-} \hlnum{15.4}
+\hldef{x_bar} \hlkwb{<-} \hlnum{14.6}
+\hldef{sigma} \hlkwb{<-} \hlnum{2.5}
+\hldef{n} \hlkwb{<-} \hlnum{35}
+\hldef{alpha} \hlkwb{<-} \hlnum{0.05}
+\hldef{z_score} \hlkwb{<-} \hldef{(x_bar} \hlopt{-} \hldef{mu)} \hlopt{/} \hldef{(sigma} \hlopt{/} \hlkwd{sqrt}\hldef{(n))}
+\hldef{z_score}
+\end{alltt}
+\begin{verbatim}
+## [1] -1.893146
+\end{verbatim}
+\begin{alltt}
+\hldef{z_critical} \hlkwb{<-} \hlkwd{qnorm}\hldef{(}\hlnum{1} \hlopt{-} \hldef{alpha} \hlopt{/} \hlnum{2}\hldef{)}
+\hldef{z_critical}
+\end{alltt}
+\begin{verbatim}
+## [1] 1.959964
+\end{verbatim}
+\begin{alltt}
+\hlcom{# Decision Rule: If |Z-score| > Z-critical, reject the null hypothesis}
+\hlkwa{if} \hldef{(}\hlkwd{abs}\hldef{(z_score)} \hlopt{>} \hldef{z_critical) \{}
+  \hldef{decision} \hlkwb{<-} \hlsng{"Reject the null hypothesis"}
+\hldef{\}} \hlkwa{else} \hldef{\{}
+  \hldef{decision} \hlkwb{<-} \hlsng{"Fail to reject the null hypothesis"}
+\hldef{\}}
+\hldef{decision}
+\end{alltt}
+\begin{verbatim}
+## [1] "Fail to reject the null hypothesis"
+\end{verbatim}
+\end{kframe}
+\end{knitrout}
+
+\end{document}

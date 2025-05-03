@@ -1,0 +1,72 @@
+\documentclass{article}
+ \date{}
+\title{\textbf{Statistics for Engineers (MAT2001)- Lab  Experiment-VII:  Two Sample Z-test}}
+
+\begin{document}
+\maketitle
+\section{Two sample Sample Z-test}
+\begin{verbatim}
+prop.test(c(x1,x2), c(n1,n2), correct=, alternate = ).
+\end{verbatim}
+
+\begin{itemize}
+  \item x1 and x2 are the number of successes in sample 1 and 2 respectively.
+  \item n1 and n2 are the sample sizes or number of trials.
+  \item correct = TRUE (use a continuity correction factor) or FALSE (do not).
+  \item alternate = "two.sided" (default), "less", or "greater".
+\end{itemize}
+\emph{The Trial Urban District Assessment (TUDA) is a study sponsored by the government of student achievement in large urban school district. In 2009, 1311 of a random sample of 1900 eighth-graders from Houston performed at or above the basic level in mathematics . In 2011, 1440 of a random sample of 2000 eighth-graders from Houston performed at or above the basic level . (The study reports the proportions).\\
+(A )Is there an increase in the proportion of eighth-graders who performed at or above the basic level in mathematics from 2009 to 2011 at the 5\% significance level?\\
+(B) Compute the 95\% confidence interval for the difference in proportion of eighth-
+graders who performed at or above the basic level in mathematics from 2009 to 2011.}\\
+(A ) Let p1 and p2 be the proprtions of eighth-graders that performed at or above he basic level in mathematics in 2011 and 2009,respectively .We wish the test
+$H_0:p_1=p_2$ against $H_1=p_1> p_2$
+<<>>=
+prop.test(c(1440, 1311), c(2000, 1900), alternative = "greater",
+          correct = FALSE)
+@
+The p-value$=0.02< 0.05$ so we reject H0. Thus, there is evidence that there is an increase from 2009 to 2011 in the proportion of eighth-graders who performed at or
+above the basic level at the 5\% significance level.\\
+(B) $H_0:p_1=p_2$  $H_1=p_1\neq p_2$
+<<>>=
+prop.test(c(1440, 1311), c(2000, 1900),
+          correct = FALSE)
+@
+Thus, we are 95\% confident that the percent of eighth-graders who performed at or above the basic level in mathematics in 2011 is between 0:14\% and 5:86\% higher than in 2009.
+\\ \\
+\emph{The use of helmet among recreational alpine skiers and snowboarders are
+generally low. A study from Norway wanted to examine if helmet use reduces the
+risk of head injury. In the study, they compared the helmet use among skiers and snowboarders that was injured with a control group. The control group consisted of
+skiers and snowboarders that was uninjured. 96 of 578 people with head injuries used a helmet and 656 of 2992 people in the uninjured group used a helmet. Is helmet use lower among skiers and snowboarders who had head injuries?}
+\\
+$H_0:p_1=p_2$  $H_1=p_1< p_2$
+<<>>=
+prop.test(c(96, 656), c(578, 2992), alternative = "less",
+          correct = FALSE)
+@
+The p-value$= 0.0021 < 0.01$ so we have strong evidence that helmet use is lower
+among skiers and snowboarders who had head injuries compared to uninjured skiers
+and snowboarders.
+\\
+\\
+\emph{In the built-in data set named quine, children from an Australian town is classified by ethnic background, gender, age, learning status and the number of days absent from school.}
+<<>>=
+# library (MASS) # load the MASS package
+# quine
+# table(quine$Eth, quine$Sex)
+# table
+@
+\emph{
+Assuming that the data in quine follows the normal distribution, find the 95\% confidence interval estimate of the difference between the female proportion of Aboriginal students and the female proportion of Non-Aboriginal students, each within their own ethnic group.
+}
+\\
+
+<<>>=
+lib <- library (MASS) # load the MASS package
+df <- quine
+table(df$Eth, df$Sex)
+prop.test(table(df$Eth, df$Sex), correct = FALSE)
+@
+The 95\% confidence interval estimate of the difference between the female proportion of Aboriginal students and the female proportion of Non-Aboriginal students is between -15.6\% and 16.7\%.
+
+\end{document}
